@@ -1,0 +1,25 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap"); */
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  /* font-family: "Mulish", "Arial", sans-serif !important; */
+  font-family: 'Switzer', sans-serif !important;
+}
+body {
+  font-family: 'Switzer', sans-serif !important;
+  
+}

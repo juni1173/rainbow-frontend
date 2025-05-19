@@ -1,0 +1,29 @@
+"use client";
+import { Box, Stack } from "@mui/material";
+import React, { useState } from "react";
+import LeadCard from "./LeadCard";
+import CustomTabs from "@/components/common/CustomTabs";
+import { leads, tabItems } from "./LeadCard/data";
+
+const Dashboard = () => {
+  return (
+    <Box
+      borderRadius={"12px"}
+      padding={1}
+      bgcolor={"#fff"}
+      boxShadow={"0px 4px 12px rgba(0, 0, 0, 0.05)"}
+      mt={4}
+    >
+      <Box mb={2.5}>
+        <CustomTabs tabs={tabItems} />
+      </Box>
+      <Stack gap={1}>
+        {leads.map((lead, index) => (
+          <LeadCard key={index} {...lead} />
+        ))}
+      </Stack>
+    </Box>
+  );
+};
+
+export default Dashboard;

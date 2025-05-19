@@ -1,0 +1,31 @@
+.tabsContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  // margin-left: -40px;
+}
+
+.tab {
+  border-radius: 8px 8px 0px 0px;
+  background: #efefef;
+  padding: 12px 24px;
+  cursor: pointer;
+  color: var(--main-color);
+  font-family: Mulish;
+  font-size: 16px;
+  font-weight: 500;
+  transition: color 0.1s ease-in-out;
+  white-space: nowrap;
+
+  &.activeTab {
+    background-color: #0057b7;
+    color: #ffffff;
+  }
+}
+.withMargin {
+  margin-right: 4px;
+}
+
+.noMargin {
+  margin-right: 4px;
+}

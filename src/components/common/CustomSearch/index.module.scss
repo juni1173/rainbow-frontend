@@ -1,0 +1,168 @@
+.input {
+  padding: 16px 24px 16px 24px;
+  width: 100%;
+  border: 1px solid #bdbdbd;
+  border-radius: 16px;
+  color: #4f4f4f;
+  font-family: Mulish;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+
+  &::placeholder {
+    color: #bdbdbd;
+  }
+}
+
+.billingInput {
+  padding: 10px;
+  max-width: 200px;
+  width: 100%;
+  border: 1px solid #bdbdbd;
+  border-radius: 16px;
+  color: #4f4f4f;
+  font-family: Mulish;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+}
+
+.label {
+  margin-bottom: 16px;
+  color: var(--main-color);
+  font-size: 24px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.billingLabel {
+  margin-bottom: 8px;
+  color: var(--main-color);
+  font-size: 16px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.billingSelectLabel {
+  margin-bottom: 8px;
+  color: var(--main-color);
+  font-size: 16px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.danger {
+  margin-top: 6px;
+  font-size: 18px;
+  font-family: Mulish;
+  font-weight: 600;
+}
+
+.selectDanger {
+  margin-top: 6px;
+  font-size: 18px;
+  font-family: Mulish;
+  font-weight: 600;
+}
+
+.searchInput {
+    width: 100%;
+  padding: 8px 12px;
+  height: 46px;
+  width: 100%;
+  border: 1px solid #d0d5dd;
+  border-radius: 6px;
+  color: rgba(102, 113, 133, 1);
+  box-shadow: 0px 4px 8px -2px rgba(0, 0, 0, 0.08),
+    0px 2px 4px -2px rgba(0, 0, 0, 0.04);
+  font-family: Mulish;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+  outline: unset;
+  letter-spacing: -0.64px;
+}
+
+.searchInput::placeholder {
+  color: #989898;
+}
+.searchContainer {
+  position: relative;
+}
+
+.searchIcon {
+  position: absolute;
+  right: 34px;
+  top: 19px;
+}
+
+.textArea {
+  height: 191px !important;
+  width: 100%;
+  border-radius: 16px;
+  border: 1px solid #989898;
+  padding: 24px 30px 0px 21px;
+  color: #4f4f4f;
+  resize: unset !important;
+  outline: unset;
+  color: #4f4f4f;
+  font-family: Mulish;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+}
+
+.ant-input {
+  max-width: 100%;
+  height: unset;
+  min-height: 32px;
+  line-height: 1.5714285714285714;
+  vertical-align: bottom;
+  transition: all 0.3s, height 0s;
+  resize: vertical;
+}
+
+.billingSelect {
+  :global {
+    .ant-select-outlined:not(.ant-select-customize-input) .ant-select-selector {
+      border: 1px solid #bdbdbd;
+      background: none;
+      width: 169px;
+      height: 38px;
+      padding: 10px;
+      border-radius: 16px;
+    }
+
+    .ant-select-arrow {
+      margin-top: -5px;
+    }
+
+    .ant-select-single.ant-select-show-arrow .ant-select-selection-item {
+      color: #4f4f4f;
+      font-family: Mulish;
+      font-size: 13px;
+      font-style: normal;
+      font-weight: 400;
+    }
+  }
+}
+
+.colorCircle {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+}
+.customSelect :global {
+  .ant-select-selection-placeholder {
+    font-size: 22px !important;
+    color: #bfbfbf !important;
+    letter-spacing: 0.3px !important;
+    // font-weight: 500 !important;
+  }
+}
