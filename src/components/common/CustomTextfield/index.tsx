@@ -2,7 +2,7 @@
 import React, { forwardRef } from "react";
 import { Box, InputAdornment, TextField, Typography } from "@mui/material";
 import styles from "./index.module.scss";
-import { CustomTextFieldProps } from "@/app/types/TextfieldProps";
+import { CustomTextFieldProps } from "@/Types/CustomTextFieldProps";
 
 const CustomTextField: React.FC<CustomTextFieldProps> = forwardRef(
   (
