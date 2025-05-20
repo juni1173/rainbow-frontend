@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import LeadCard from "./LeadCard";
 import CustomTabs from "@/components/common/CustomTabs";
 import { leads, tabItems } from "./LeadCard/data";
+import Header from "@/views/Dashboard/Header";
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("All");
@@ -16,23 +17,31 @@ const Dashboard = () => {
   });
   return (
     <Box
-      borderRadius={"12px"}
-      padding={1}
-      bgcolor={"#fff"}
-      boxShadow={"0px 4px 12px rgba(0, 0, 0, 0.05)"}
-      mt={4}
+      sx={{
+        padding: "48px",
+      }}
     >
-      <Box mb={2.5}>
-        <CustomTabs
-          tabs={tabItems}
-          onTabChange={(label) => setActiveTab(label)}
-        />
+      <Header />
+
+      <Box
+        borderRadius={"12px"}
+        padding={1}
+        bgcolor={"#fff"}
+        boxShadow={"0px 4px 12px rgba(0, 0, 0, 0.05)"}
+        mt={4}
+      >
+        <Box mb={2.5}>
+          <CustomTabs
+            tabs={tabItems}
+            onTabChange={(label) => setActiveTab(label)}
+          />
+        </Box>
+        <Stack gap={1}>
+          {filteredLeads.map((lead, index) => (
+            <LeadCard key={index} {...lead} />
+          ))}
+        </Stack>
       </Box>
-      <Stack gap={1}>
-        {filteredLeads.map((lead, index) => (
-          <LeadCard key={index} {...lead} />
-        ))}
-      </Stack>
     </Box>
   );
 };

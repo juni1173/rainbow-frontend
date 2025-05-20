@@ -1,31 +1,29 @@
 "use client";
 import React, { useState } from "react";
 import styles from "./index.module.scss";
-import { Box, Button, Typography } from "@mui/material";
-import { sidebarButtons, sidebarItems } from "./sidebarItem";
+import { Box, Typography } from "@mui/material";
+import { sidebarButtons, sidebarItems, sidebarItemsMobile } from "./sidebarItem";
 import Logo from "../../assests/images/logo.png";
 import Image from "next/image";
-import {
-  Aireach,
-  Analytics,
-  LeadsIcon,
-  Tasks,
-  UserIcon,
-} from "@/assests/icons";
+import { useRouter } from "next/navigation"; 
+
+
 const Sidebar = () => {
   const [activeButton, setActiveButton] = useState("admin");
   const [activeSidebarItem, setActiveSidebarItem] = useState<string | null>(
     null
   );
   const [activeTab, setActiveTab] = useState("hot-leads");
+  const router = useRouter(); 
 
-  const tabs = [
-    { id: "hot-leads", label: "Hot Leads", Icon: LeadsIcon },
-    { id: "ai-outreach", label: "AI Outreach", Icon: Aireach },
-    { id: "tasks", label: "Tasks", Icon: Tasks },
-    { id: "analytics", label: "Analytics", Icon: Analytics },
-    { id: "admin", label: "Admin", Icon: UserIcon },
-  ];
+  const pathMap: Record<string, string> = {
+    "Hot Leads": "/dashboard",
+    "AI Outreach": "/ai-reach",
+    "Tasks & Reminder": "/tasks",
+    Analytics: "/analytics",
+    "Admin Oversight": "/admin-oversight",
+  };
+
   return (
     <>
       <Box
@@ -37,11 +35,11 @@ const Sidebar = () => {
           },
         }}
       >
-        {" "}
         <Image
           src={Logo}
           alt="logo"
           style={{ marginBottom: "48px", marginTop: "32px", cursor: "pointer" }}
+          onClick={() => router.push("/dashboard")} 
         />
         <Box
           sx={{
@@ -82,7 +80,13 @@ const Sidebar = () => {
               className={`${styles.sidebarItem} ${
                 activeSidebarItem === label ? styles.active : ""
               }`}
-              onClick={() => setActiveSidebarItem(label)}
+              onClick={() => {
+                setActiveSidebarItem(label);
+                if (pathMap[label]) {
+                  router.push(pathMap[label]); 
+                }
+              }}
+              sx={{ cursor: "pointer" }}
             >
               <Icon />
               <Typography
@@ -118,18 +122,25 @@ const Sidebar = () => {
           zIndex: 1300,
         }}
       >
-        {tabs.map(({ id, label, Icon }) => (
+        {sidebarItemsMobile.map(({ label, icon: Icon }) => (
           <Box
-            key={id}
-            onClick={() => setActiveTab(id)}
+            key={label}
+            onClick={() => {
+              setActiveTab(label.toLowerCase().replace(/\s+/g, "-"));
+              if (pathMap[label]) {
+                router.push(pathMap[label]);
+              }
+            }}
             sx={{
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
               cursor: "pointer",
-              // color: activeTab === id ? "#7A4DF5" : "#444",
-              fontWeight: activeTab === id ? 600 : 400,
+              fontWeight:
+                activeTab === label.toLowerCase().replace(/\s+/g, "-")
+                  ? 600
+                  : 400,
               position: "relative",
               flex: 1,
               px: 0,
@@ -141,13 +152,19 @@ const Sidebar = () => {
               variant="caption"
               sx={{
                 fontSize: 10,
-                color: activeTab === id ? "#7A4DF5" : "#444",
-                fontWeight: activeTab === id ? "600" : "400",
+                color:
+                  activeTab === label.toLowerCase().replace(/\s+/g, "-")
+                    ? "#7A4DF5"
+                    : "#444",
+                fontWeight:
+                  activeTab === label.toLowerCase().replace(/\s+/g, "-")
+                    ? "600"
+                    : "400",
               }}
             >
               {label}
             </Typography>
-            {activeTab === id && (
+            {activeTab === label.toLowerCase().replace(/\s+/g, "-") && (
               <Box
                 sx={{
                   position: "absolute",

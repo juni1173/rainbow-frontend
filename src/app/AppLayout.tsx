@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import Sidebar from "@/components/Sidebar";
-import Header from "@/components/Header";
+import Header from "@/views/Dashboard/Header";
 import { Box } from "@mui/material";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
@@ -26,15 +26,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <Box sx={{ flexShrink: 0 }}>
         <Sidebar />
       </Box>
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          overflowY: "auto",
-          padding: "48px",
-        }}
-      >
-        <Header />
+      <Box component="main" sx={{ flexGrow: 1, overflowY: "auto" }}>
         {children}
       </Box>
     </Box>
