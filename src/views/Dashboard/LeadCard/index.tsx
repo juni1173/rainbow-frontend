@@ -2,8 +2,7 @@
 import { Box, Typography, Avatar, Stack, Button, Chip } from "@mui/material";
 import StatusTag from "./StatusTag";
 import ActionButtons from "./ActionButtons";
-import { Cold, Message, Typing, Urgent } from "@/assests/icons";
-import StatusChip from "./StatusButton";
+import { Cold, Typing, Urgent } from "@/assests/icons";
 import StatusButton from "./StatusButton";
 
 interface LeadCardProps {
@@ -40,25 +39,25 @@ const LeadCard = ({
         backgroundColor: "#F6F8FA",
       }}
     >
-      <Box display={"flex"} alignItems={"center"} gap={14}>
-        <Stack direction="row" spacing={2}>
-          <Avatar
-            src={avatarUrl}
-            sx={{
-              bgcolor: "#D9EFFF",
-              height: "56px",
-              width: "56px",
-              color: "#0062FF",
-              fontWeight: "600",
-              fontSize: "20px",
-            }}
-          >
-            {initials}
-          </Avatar>
+      <Box display="flex" width="30%" gap={2}>
+        <Avatar
+          src={avatarUrl}
+          sx={{
+            bgcolor: "#D9EFFF",
+            height: "56px",
+            width: "56px",
+            color: "#0062FF",
+            fontWeight: "600",
+            fontSize: "20px",
+          }}
+        >
+          {initials}
+        </Avatar>
 
-          <Stack spacing={1.5}>
-            <Stack direction="row" spacing={1} alignItems="center">
-              <Typography variant="body1">{name}</Typography>
+        <Stack spacing={1.5}>
+          <Stack direction="row" spacing={1} alignItems="center">
+            <Typography variant="body1">{name}</Typography>
+            <Box sx={{ display: { sm: "none", md: "block" } }}>
               {isGoingCold ? (
                 <StatusTag
                   label="Going Cold"
@@ -68,53 +67,64 @@ const LeadCard = ({
               ) : (
                 <StatusTag label="Urgent" color="#FFF0F3" icon={<Urgent />} />
               )}
-            </Stack>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: "8px",
-                borderRadius: "8px",
-                padding: "6px 10px",
-                background: "#ECEFF3",
-                color: "#36394A",
-              }}
-            >
-              <Typing />
-              <Typography variant="subtitle1" color="text.secondary">
-                {serviceType}
-              </Typography>
             </Box>
           </Stack>
-        </Stack>
-
-        <Stack spacing={1}>
-          <Typography variant="body2" color="#666D80">
-            {serviceName}
-          </Typography>
-          <Typography variant="body1" fontSize={16} color="#0D0D12">
-            {message}
-          </Typography>
-
-          <Stack direction="row" spacing={2}></Stack>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              borderRadius: "8px",
+              padding: "6px 10px",
+              background: "#ECEFF3",
+              color: "#36394A",
+            }}
+          >
+            <Typing />
+            <Typography variant="subtitle1" color="text.secondary">
+              {serviceType}
+            </Typography>
+          </Box>
         </Stack>
       </Box>
 
-      {isGoingCold ? (
-        serviceType.toLowerCase().startsWith("missed") ? (
-          <Box display="flex" gap={2}>
-            <StatusButton type="snoozed" label="Snooze for later" />
-            <StatusButton type="meeting" label="Meeting set for 3 PM" />
-          </Box>
+      <Box width="30%">
+        <Typography variant="body2" color="#666D80" mb={2.5}>
+          {serviceName}
+        </Typography>
+        <Typography variant="body1" fontSize={16} color="#0D0D12">
+          {message}
+        </Typography>
+      </Box>
+
+      <Box
+        sx={{
+          width: {
+            xs: "100%", 
+            md: "50%", 
+            xl: "40%", 
+          },
+        }}
+        display="flex"
+        justifyContent="flex-end"
+        gap={2}
+      >
+        {isGoingCold ? (
+          serviceType.toLowerCase().startsWith("missed") ? (
+            <>
+              <StatusButton type="snoozed" label="Snooze for later" />
+              <StatusButton type="meeting" label="Meeting set for 3 PM" />
+            </>
+          ) : (
+            <>
+              <StatusButton type="addressed" label="Addressed" />
+              <StatusButton type="meeting" label="Meeting set for 3 PM" />
+            </>
+          )
         ) : (
-          <Box display="flex" gap={2}>
-            <StatusButton type="addressed" label="Addressed" />
-            <StatusButton type="meeting" label="Meeting set for 3 PM" />
-          </Box>
-        )
-      ) : (
-        <ActionButtons />
-      )}
+          <ActionButtons />
+        )}
+      </Box>
     </Box>
   );
 };

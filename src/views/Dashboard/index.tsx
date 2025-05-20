@@ -6,6 +6,14 @@ import CustomTabs from "@/components/common/CustomTabs";
 import { leads, tabItems } from "./LeadCard/data";
 
 const Dashboard = () => {
+  const [activeTab, setActiveTab] = useState("All");
+
+  const filteredLeads = leads.filter((lead) => {
+    if (activeTab === "All") return true;
+    if (activeTab === "Urgent") return !lead.isGoingCold;
+    if (activeTab === "Going Cold") return lead.isGoingCold;
+    return true;
+  });
   return (
     <Box
       borderRadius={"12px"}
@@ -15,10 +23,13 @@ const Dashboard = () => {
       mt={4}
     >
       <Box mb={2.5}>
-        <CustomTabs tabs={tabItems} />
+        <CustomTabs
+          tabs={tabItems}
+          onTabChange={(label) => setActiveTab(label)}
+        />
       </Box>
       <Stack gap={1}>
-        {leads.map((lead, index) => (
+        {filteredLeads.map((lead, index) => (
           <LeadCard key={index} {...lead} />
         ))}
       </Stack>

@@ -1,8 +1,3 @@
-import React from "react";
-import AllInboxIcon from "@mui/icons-material/AllInbox";
-import ErrorIcon from "@mui/icons-material/Error";
-import AcUnitIcon from "@mui/icons-material/AcUnit";
-
 interface LeadCardProps {
   name: string;
   initials: string;
@@ -13,18 +8,9 @@ interface LeadCardProps {
   avatarUrl?: string;
 }
 export const tabItems = [
-  {
-    label: "All",
-    content: <div>All Leads Content</div>,
-  },
-  {
-    label: "Urgent",
-    content: <div>Urgent Leads Content</div>,
-  },
-  {
-    label: "Going Cold",
-    content: <div>Cold Leads Content</div>,
-  },
+  { label: "All" },
+  { label: "Urgent" },
+  { label: "Going Cold" },
 ];
 
 export const leads: LeadCardProps[] = [
@@ -33,7 +19,7 @@ export const leads: LeadCardProps[] = [
     initials: "JB",
     isGoingCold: true,
     serviceType: "Replied 5min ago",
-    serviceName: "Burial Services",
+    serviceName: "Cremation Services",
     message: "Can we Speak tomorrow?",
   },
   {
@@ -49,7 +35,7 @@ export const leads: LeadCardProps[] = [
     isGoingCold: true,
 
     serviceType: "Replied 5min ago",
-    serviceName: "Burial Services",
+    serviceName: "Cremation Services",
     message: "Can we Speak tomorrow?",
   },
   {
@@ -58,7 +44,7 @@ export const leads: LeadCardProps[] = [
     isGoingCold: true,
 
     serviceType: "Missed 2h ago",
-    serviceName: "Burial Services",
+    serviceName: "Cremation Services",
     message: "Can we Speak tomorrow?",
   },
   {

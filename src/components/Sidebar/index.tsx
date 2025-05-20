@@ -3,12 +3,20 @@ import React, { useState } from "react";
 import styles from "./index.module.scss";
 import { Box, Button, Typography } from "@mui/material";
 import { sidebarButtons, sidebarItems } from "./sidebarItem";
-import Logo from "../../assests/images/logo.png"
+import Logo from "../../assests/images/logo.png";
 import Image from "next/image";
-import { Aireach, Analytics, LeadsIcon, Tasks, UserIcon } from "@/assests/icons";
+import {
+  Aireach,
+  Analytics,
+  LeadsIcon,
+  Tasks,
+  UserIcon,
+} from "@/assests/icons";
 const Sidebar = () => {
   const [activeButton, setActiveButton] = useState("admin");
-const [activeSidebarItem, setActiveSidebarItem] = useState<string | null>(null);
+  const [activeSidebarItem, setActiveSidebarItem] = useState<string | null>(
+    null
+  );
   const [activeTab, setActiveTab] = useState("hot-leads");
 
   const tabs = [
@@ -20,79 +28,81 @@ const [activeSidebarItem, setActiveSidebarItem] = useState<string | null>(null);
   ];
   return (
     <>
-<Box
-  className={styles.sidebar}
-  sx={{
-    display: {
-      xs: "none",  
-      sm: "block",  
-    },
-  }}
->      <Image src={Logo}alt="logo" style={{marginBottom:"48px", marginTop:"32px"}}/>
-     <Box
-  sx={{
-    display: "inline-flex",
-    border: "1px solid #ccc",
-    borderRadius: "12px",
-    overflow: "hidden",
-    userSelect: "none",
-    padding:"4px",
-    marginBottom:"32px"
-  }}
->
-  {sidebarButtons.map(({ label, id }: any) => (
-    <Typography
-    key={id}
-      onClick={() => setActiveButton(id)}
-      variant="body2"
-      sx={{
-        cursor: "pointer",
-        padding: "8px 16px",
-        backgroundColor: activeButton === id ? "#F6F8FA" : "transparent",
-        color: activeButton === id ? "#0D0D12" : "#0D0D12",
-        userSelect: "none",
-        font: activeButton === id ? "16px" : "12px",
-        borderRadius:"10px",
-        fontWeight: activeButton === id ? "600" : "400",
-        
-        
-      }}
+      <Box
+        className={styles.sidebar}
+        sx={{
+          display: {
+            xs: "none",
+            sm: "block",
+          },
+        }}
       >
-      {label}
-    </Typography>
-  ))}
-</Box>
-
-
-      <Box className={styles.itemsList}>
-        {sidebarItems.map(({ label, icon: Icon }:any) => (
-         
-          <Box
-  key={label}
-  className={`${styles.sidebarItem} ${activeSidebarItem === label ? styles.active : ''}`}
-  onClick={() => setActiveSidebarItem(label)}
->
-  <Icon />
-  <Typography
-    variant="body1"
-    sx={{
-      marginLeft: 1,
-      color: activeSidebarItem === label ? "#7A4DF5" : "#0D0D12",
-      fontWeight: activeSidebarItem === label ? 600 : 400,
-      fontSize:"18px"
-    }}
-  >
-    {label}
-  </Typography>
-</Box>
-        ))}
+        {" "}
+        <Image
+          src={Logo}
+          alt="logo"
+          style={{ marginBottom: "48px", marginTop: "32px", cursor: "pointer" }}
+        />
+        <Box
+          sx={{
+            display: "inline-flex",
+            border: "1px solid #ccc",
+            borderRadius: "12px",
+            overflow: "hidden",
+            userSelect: "none",
+            padding: "4px",
+            marginBottom: "32px",
+          }}
+        >
+          {sidebarButtons.map(({ label, id }: any) => (
+            <Typography
+              key={id}
+              onClick={() => setActiveButton(id)}
+              variant="body2"
+              sx={{
+                cursor: "pointer",
+                padding: "8px 16px",
+                backgroundColor:
+                  activeButton === id ? "#F6F8FA" : "transparent",
+                color: activeButton === id ? "#0D0D12" : "#0D0D12",
+                userSelect: "none",
+                font: activeButton === id ? "16px" : "12px",
+                borderRadius: "10px",
+                fontWeight: activeButton === id ? "600" : "400",
+              }}
+            >
+              {label}
+            </Typography>
+          ))}
+        </Box>
+        <Box className={styles.itemsList}>
+          {sidebarItems.map(({ label, icon: Icon }: any) => (
+            <Box
+              key={label}
+              className={`${styles.sidebarItem} ${
+                activeSidebarItem === label ? styles.active : ""
+              }`}
+              onClick={() => setActiveSidebarItem(label)}
+            >
+              <Icon />
+              <Typography
+                variant="body1"
+                sx={{
+                  marginLeft: 1,
+                  color: activeSidebarItem === label ? "#7A4DF5" : "#0D0D12",
+                  fontWeight: activeSidebarItem === label ? 600 : 400,
+                  fontSize: "18px",
+                }}
+              >
+                {label}
+              </Typography>
+            </Box>
+          ))}
+        </Box>
       </Box>
-      
 
-    </Box>
-
-    {/* Mobile responsive sidebar */}
-       <Box
+      {/* Mobile responsive sidebar */}
+      <Box
         sx={{
           display: { xs: "flex", sm: "none" },
           justifyContent: "space-around",
@@ -127,7 +137,14 @@ const [activeSidebarItem, setActiveSidebarItem] = useState<string | null>(null);
             }}
           >
             <Icon sx={{ fontSize: 28, mb: 0.5 }} />
-            <Typography variant="caption" sx={{ fontSize: 10,color: activeTab === id ? "#7A4DF5" : "#444",fontWeight: activeTab === id ? "600" : "400" }} >
+            <Typography
+              variant="caption"
+              sx={{
+                fontSize: 10,
+                color: activeTab === id ? "#7A4DF5" : "#444",
+                fontWeight: activeTab === id ? "600" : "400",
+              }}
+            >
               {label}
             </Typography>
             {activeTab === id && (
@@ -146,7 +163,7 @@ const [activeSidebarItem, setActiveSidebarItem] = useState<string | null>(null);
           </Box>
         ))}
       </Box>
-      </>
+    </>
   );
 };
 
