@@ -17,9 +17,13 @@ import Back from "./Back.svg";
 import Notes from "./Notes.svg";
 import SmallMail from "./SmallMail.svg";
 import SmallPhone from "./SmallPhone.svg";
-import Inquiry from "./Inquiry.svg"
-import Mark from "./Mark.svg"
-import AssignTask from "./AssignTask.svg"
+import Inquiry from "./Inquiry.svg";
+import Mark from "./Mark.svg";
+import AssignTask from "./AssignTask.svg";
+import Details from "./Details.svg";
+import Bell from "./Bell.svg";
+import UrgentBlue from "./UrgentBlue.svg";
+import Add from "./Add.svg";
 export {
   LeadsIcon,
   UserIcon,
@@ -42,5 +46,9 @@ export {
   SmallPhone,
   Inquiry,
   AssignTask,
-  Mark
+  Mark,
+  Bell,
+  Details,
+  UrgentBlue,
+  Add,
 };

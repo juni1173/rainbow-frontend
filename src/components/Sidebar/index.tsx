@@ -1,20 +1,58 @@
 "use client";
 import React, { useState } from "react";
 import styles from "./index.module.scss";
-import { Box, Typography } from "@mui/material";
-import { sidebarButtons, sidebarItems, sidebarItemsMobile } from "./sidebarItem";
+import { Box, Tooltip, Typography } from "@mui/material";
+import { CircularProgress } from "@mui/material";
+import Cookies from "js-cookie";
+
+import {
+  sidebarButtons,
+  sidebarItems,
+  sidebarItemsMobile,
+} from "./sidebarItem";
 import Logo from "../../assests/images/logo.png";
 import Image from "next/image";
-import { useRouter } from "next/navigation"; 
-
+import { useRouter } from "next/navigation";
+import { Logout, Password } from "@mui/icons-material";
+import { useLogOutMutation } from "@/redux/services/auth/authApi";
 
 const Sidebar = () => {
   const [activeButton, setActiveButton] = useState("admin");
   const [activeSidebarItem, setActiveSidebarItem] = useState<string | null>(
     null
   );
+  const [loggedOut, setLoggedOut] = useState(false);
+
+  const [logOut] = useLogOutMutation();
+
   const [activeTab, setActiveTab] = useState("hot-leads");
-  const router = useRouter(); 
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
+  const handleLogOut = async () => {
+    setLoading(true);
+    try {
+      const token = sessionStorage.getItem("id_token");
+      await logOut({ token }).unwrap();
+      Cookies.remove("id_token");
+      sessionStorage.clear();
+      // setTimeout(() => {
+      //   setLoading(false);
+
+      //   router.replace("/auth/sign-in");
+      // }, 1000);
+      setLoggedOut(true);
+
+      router.replace("/auth/sign-in");
+    } catch (error: any) {
+      setLoading(false);
+      alert(error?.data?.message || "Logout failed.");
+    }
+  };
+  const handleChangePassword = () => {
+    setLoading(true);
+    router.push("/auth/self-change-password");
+  };
 
   const pathMap: Record<string, string> = {
     "Hot Leads": "/dashboard",
@@ -23,7 +61,26 @@ const Sidebar = () => {
     Analytics: "/analytics",
     "Admin Oversight": "/admin-oversight",
   };
-
+  if (loading || loggedOut) {
+    return (
+      <Box
+        sx={{
+          width: "100vw",
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#fff",
+          position: "fixed",
+          top: 0,
+          left: 0,
+          zIndex: 2000,
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
   return (
     <>
       <Box
@@ -35,12 +92,22 @@ const Sidebar = () => {
           },
         }}
       >
-        <Image
-          src={Logo}
-          alt="logo"
-          style={{ marginBottom: "48px", marginTop: "32px", cursor: "pointer" }}
-          onClick={() => router.push("/dashboard")} 
-        />
+        <Box
+          display={"flex"}
+          justifyContent={"space-between"}
+          alignItems={"center"}
+        >
+          <Image
+            src={Logo}
+            alt="logo"
+            style={{
+              marginBottom: "48px",
+              marginTop: "32px",
+              cursor: "pointer",
+            }}
+            onClick={() => router.push("/dashboard")}
+          />
+        </Box>
         <Box
           sx={{
             display: "inline-flex",
@@ -73,35 +140,57 @@ const Sidebar = () => {
             </Typography>
           ))}
         </Box>
-        <Box className={styles.itemsList}>
-          {sidebarItems.map(({ label, icon: Icon }: any) => (
-            <Box
-              key={label}
-              className={`${styles.sidebarItem} ${
-                activeSidebarItem === label ? styles.active : ""
-              }`}
-              onClick={() => {
-                setActiveSidebarItem(label);
-                if (pathMap[label]) {
-                  router.push(pathMap[label]); 
-                }
-              }}
-              sx={{ cursor: "pointer" }}
-            >
-              <Icon />
-              <Typography
-                variant="body1"
-                sx={{
-                  marginLeft: 1,
-                  color: activeSidebarItem === label ? "#7A4DF5" : "#0D0D12",
-                  fontWeight: activeSidebarItem === label ? 600 : 400,
-                  fontSize: "18px",
+        <Box
+          display={"flex"}
+          flexDirection={"column"}
+          justifyContent={"space-between"}
+          height={"65%"}
+        >
+          <Box className={styles.itemsList}>
+            {sidebarItems.map(({ label, icon: Icon }: any) => (
+              <Box
+                key={label}
+                className={`${styles.sidebarItem} ${
+                  activeSidebarItem === label ? styles.active : ""
+                }`}
+                onClick={() => {
+                  setActiveSidebarItem(label);
+                  if (pathMap[label]) {
+                    router.push(pathMap[label]);
+                  }
                 }}
+                sx={{ cursor: "pointer" }}
               >
-                {label}
-              </Typography>
-            </Box>
-          ))}
+                <Icon />
+                <Typography
+                  variant="body1"
+                  sx={{
+                    marginLeft: 1,
+                    color: activeSidebarItem === label ? "#7A4DF5" : "#0D0D12",
+                    fontWeight: activeSidebarItem === label ? 600 : 400,
+                    fontSize: "18px",
+                  }}
+                >
+                  {label}
+                </Typography>
+              </Box>
+            ))}
+          </Box>
+          <Box
+            display={"flex"}
+            justifyContent={"space-between"}
+            alignItems={"center"}
+          >
+            <Tooltip title="Logout" placement="top" arrow>
+              <Logout onClick={handleLogOut} style={{ cursor: "pointer" }} />
+            </Tooltip>
+            <Tooltip title="Change Password" placement="top" arrow>
+              <Password
+                onClick={handleChangePassword}
+                style={{ cursor: "pointer" }}
+              />
+            </Tooltip>
+          </Box>
         </Box>
       </Box>
 

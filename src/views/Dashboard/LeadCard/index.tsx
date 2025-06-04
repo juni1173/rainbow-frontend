@@ -37,6 +37,7 @@ const LeadCard = ({
         padding: "20px 32px",
         boxSizing: "border-box",
         backgroundColor: "#F6F8FA",
+        // flexWrap:"wrap"
       }}
     >
       <Box display="flex" width="30%" gap={2}>
@@ -100,9 +101,9 @@ const LeadCard = ({
       <Box
         sx={{
           width: {
-            xs: "100%", 
-            md: "50%", 
-            xl: "40%", 
+            xs: "100%",
+            md: "50%",
+            xl: "40%",
           },
         }}
         display="flex"
