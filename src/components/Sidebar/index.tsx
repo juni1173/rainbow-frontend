@@ -1,31 +1,86 @@
 "use client";
 import React, { useState } from "react";
 import styles from "./index.module.scss";
-import { Box, Button, Typography } from "@mui/material";
-import { sidebarButtons, sidebarItems } from "./sidebarItem";
+import { Box, Tooltip, Typography } from "@mui/material";
+import { CircularProgress } from "@mui/material";
+import Cookies from "js-cookie";
+
+import {
+  sidebarButtons,
+  sidebarItems,
+  sidebarItemsMobile,
+} from "./sidebarItem";
 import Logo from "../../assests/images/logo.png";
 import Image from "next/image";
-import {
-  Aireach,
-  Analytics,
-  LeadsIcon,
-  Tasks,
-  UserIcon,
-} from "@/assests/icons";
+import { useRouter } from "next/navigation";
+import { Logout, Password } from "@mui/icons-material";
+import { useLogOutMutation } from "@/redux/services/auth/authApi";
+
 const Sidebar = () => {
   const [activeButton, setActiveButton] = useState("admin");
   const [activeSidebarItem, setActiveSidebarItem] = useState<string | null>(
     null
   );
-  const [activeTab, setActiveTab] = useState("hot-leads");
+  const [loggedOut, setLoggedOut] = useState(false);
 
-  const tabs = [
-    { id: "hot-leads", label: "Hot Leads", Icon: LeadsIcon },
-    { id: "ai-outreach", label: "AI Outreach", Icon: Aireach },
-    { id: "tasks", label: "Tasks", Icon: Tasks },
-    { id: "analytics", label: "Analytics", Icon: Analytics },
-    { id: "admin", label: "Admin", Icon: UserIcon },
-  ];
+  const [logOut] = useLogOutMutation();
+
+  const [activeTab, setActiveTab] = useState("hot-leads");
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
+  const handleLogOut = async () => {
+    setLoading(true);
+    try {
+      const token = sessionStorage.getItem("id_token");
+      await logOut({ token }).unwrap();
+      Cookies.remove("id_token");
+      sessionStorage.clear();
+      // setTimeout(() => {
+      //   setLoading(false);
+
+      //   router.replace("/auth/sign-in");
+      // }, 1000);
+      setLoggedOut(true);
+
+      router.replace("/auth/sign-in");
+    } catch (error: any) {
+      setLoading(false);
+      alert(error?.data?.message || "Logout failed.");
+    }
+  };
+  const handleChangePassword = () => {
+    setLoading(true);
+    router.push("/auth/self-change-password");
+  };
+
+  const pathMap: Record<string, string> = {
+    "Hot Leads": "/dashboard",
+    "AI Outreach": "/ai-reach",
+    "Tasks & Reminder": "/tasks",
+    Analytics: "/analytics",
+    "Admin Oversight": "/admin-oversight",
+  };
+  if (loading || loggedOut) {
+    return (
+      <Box
+        sx={{
+          width: "100vw",
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#fff",
+          position: "fixed",
+          top: 0,
+          left: 0,
+          zIndex: 2000,
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
   return (
     <>
       <Box
@@ -37,12 +92,22 @@ const Sidebar = () => {
           },
         }}
       >
-        {" "}
-        <Image
-          src={Logo}
-          alt="logo"
-          style={{ marginBottom: "48px", marginTop: "32px", cursor: "pointer" }}
-        />
+        <Box
+          display={"flex"}
+          justifyContent={"space-between"}
+          alignItems={"center"}
+        >
+          <Image
+            src={Logo}
+            alt="logo"
+            style={{
+              marginBottom: "48px",
+              marginTop: "32px",
+              cursor: "pointer",
+            }}
+            onClick={() => router.push("/dashboard")}
+          />
+        </Box>
         <Box
           sx={{
             display: "inline-flex",
@@ -75,29 +140,57 @@ const Sidebar = () => {
             </Typography>
           ))}
         </Box>
-        <Box className={styles.itemsList}>
-          {sidebarItems.map(({ label, icon: Icon }: any) => (
-            <Box
-              key={label}
-              className={`${styles.sidebarItem} ${
-                activeSidebarItem === label ? styles.active : ""
-              }`}
-              onClick={() => setActiveSidebarItem(label)}
-            >
-              <Icon />
-              <Typography
-                variant="body1"
-                sx={{
-                  marginLeft: 1,
-                  color: activeSidebarItem === label ? "#7A4DF5" : "#0D0D12",
-                  fontWeight: activeSidebarItem === label ? 600 : 400,
-                  fontSize: "18px",
+        <Box
+          display={"flex"}
+          flexDirection={"column"}
+          justifyContent={"space-between"}
+          height={"65%"}
+        >
+          <Box className={styles.itemsList}>
+            {sidebarItems.map(({ label, icon: Icon }: any) => (
+              <Box
+                key={label}
+                className={`${styles.sidebarItem} ${
+                  activeSidebarItem === label ? styles.active : ""
+                }`}
+                onClick={() => {
+                  setActiveSidebarItem(label);
+                  if (pathMap[label]) {
+                    router.push(pathMap[label]);
+                  }
                 }}
+                sx={{ cursor: "pointer" }}
               >
-                {label}
-              </Typography>
-            </Box>
-          ))}
+                <Icon />
+                <Typography
+                  variant="body1"
+                  sx={{
+                    marginLeft: 1,
+                    color: activeSidebarItem === label ? "#7A4DF5" : "#0D0D12",
+                    fontWeight: activeSidebarItem === label ? 600 : 400,
+                    fontSize: "18px",
+                  }}
+                >
+                  {label}
+                </Typography>
+              </Box>
+            ))}
+          </Box>
+          <Box
+            display={"flex"}
+            justifyContent={"space-between"}
+            alignItems={"center"}
+          >
+            <Tooltip title="Logout" placement="top" arrow>
+              <Logout onClick={handleLogOut} style={{ cursor: "pointer" }} />
+            </Tooltip>
+            <Tooltip title="Change Password" placement="top" arrow>
+              <Password
+                onClick={handleChangePassword}
+                style={{ cursor: "pointer" }}
+              />
+            </Tooltip>
+          </Box>
         </Box>
       </Box>
 
@@ -118,18 +211,25 @@ const Sidebar = () => {
           zIndex: 1300,
         }}
       >
-        {tabs.map(({ id, label, Icon }) => (
+        {sidebarItemsMobile.map(({ label, icon: Icon }) => (
           <Box
-            key={id}
-            onClick={() => setActiveTab(id)}
+            key={label}
+            onClick={() => {
+              setActiveTab(label.toLowerCase().replace(/\s+/g, "-"));
+              if (pathMap[label]) {
+                router.push(pathMap[label]);
+              }
+            }}
             sx={{
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
               cursor: "pointer",
-              // color: activeTab === id ? "#7A4DF5" : "#444",
-              fontWeight: activeTab === id ? 600 : 400,
+              fontWeight:
+                activeTab === label.toLowerCase().replace(/\s+/g, "-")
+                  ? 600
+                  : 400,
               position: "relative",
               flex: 1,
               px: 0,
@@ -141,13 +241,19 @@ const Sidebar = () => {
               variant="caption"
               sx={{
                 fontSize: 10,
-                color: activeTab === id ? "#7A4DF5" : "#444",
-                fontWeight: activeTab === id ? "600" : "400",
+                color:
+                  activeTab === label.toLowerCase().replace(/\s+/g, "-")
+                    ? "#7A4DF5"
+                    : "#444",
+                fontWeight:
+                  activeTab === label.toLowerCase().replace(/\s+/g, "-")
+                    ? "600"
+                    : "400",
               }}
             >
               {label}
             </Typography>
-            {activeTab === id && (
+            {activeTab === label.toLowerCase().replace(/\s+/g, "-") && (
               <Box
                 sx={{
                   position: "absolute",

@@ -12,3 +12,10 @@ export const sidebarItems = [
   { label: "Analytics", icon: Analytics },
   { label: "Admin Oversight", icon: UserIcon },
 ];
+export const sidebarItemsMobile = [
+  { label: "Hot Leads", icon: LeadsIcon },
+  { label: "AI Outreach", icon: Aireach },
+  { label: "Tasks", icon: Tasks },
+  { label: "Analytics", icon: Analytics },
+  { label: "Admin", icon: UserIcon },
+];

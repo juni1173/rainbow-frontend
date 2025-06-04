@@ -46,10 +46,10 @@ const CustomButton: React.FC<CustomButtonProps> = ({
         fontSize: fontSize,
         border: border ? `1px solid ${border}` : "",
         transition: "background 0.3s ease, color 0.3s ease",
-        "&:hover": {
-          background: customColor ? hoverColor : "",
-          color: customColor ? "#fff" : "",
-        },
+        // "&:hover": {
+        //   background: customColor ? hoverColor : "",
+        //   color: customColor ? "#fff" : "",
+        // },
       }}
       className={styles.button}
       {...rest}
