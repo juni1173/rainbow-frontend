@@ -83,7 +83,7 @@ const SelfChangePassword = () => {
           <CustomTextField
             label="Previous Password"
             type="password"
-            fullWidth 
+            fullWidth
             onChange={(e) => setPrevPassword(e.target.value)}
             placeholder="Write Previous password"
           />
@@ -113,7 +113,9 @@ const SelfChangePassword = () => {
         >
           {loading ? "Changing..." : "Change Password"}
         </CustomButton>
-
+        <Typography variant="body2" align="center" mt={4}>
+          <Link href="/dashboard">Back to home</Link>
+        </Typography>
         {message && (
           <Alert severity={severity} sx={{ mt: 2 }}>
             {message}

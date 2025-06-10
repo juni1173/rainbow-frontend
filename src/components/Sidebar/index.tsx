@@ -59,7 +59,7 @@ const Sidebar = () => {
     "AI Outreach": "/ai-reach",
     "Tasks & Reminder": "/tasks",
     Analytics: "/analytics",
-    "Admin Oversight": "/admin-oversight",
+    "Admin Oversight": "/user-management",
   };
   if (loading || loggedOut) {
     return (
@@ -178,18 +178,59 @@ const Sidebar = () => {
           </Box>
           <Box
             display={"flex"}
-            justifyContent={"space-between"}
-            alignItems={"center"}
+            // justifyContent={"space-between"}
+            alignItems={"self-start"}
+            flexDirection={"column"}
+            gap={2}
           >
-            <Tooltip title="Logout" placement="top" arrow>
-              <Logout onClick={handleLogOut} style={{ cursor: "pointer" }} />
-            </Tooltip>
-            <Tooltip title="Change Password" placement="top" arrow>
-              <Password
-                onClick={handleChangePassword}
-                style={{ cursor: "pointer" }}
-              />
-            </Tooltip>
+            <Box
+              display={"flex"}
+              alignItems={"start"}
+              justifyContent={"start"}
+              gap={2}
+              style={{ cursor: "pointer" }}
+              onClick={handleLogOut}
+            >
+              <Tooltip title="Logout" placement="top" arrow>
+                <Logout />
+              </Tooltip>
+              <Typography
+                variant="body2"
+                sx={{
+                  color: "#6B39F4",
+                  fontWeight: 600,
+                  fontSize: "16px",
+                  userSelect: "none",
+                  textDecoration: "underline",
+                }}
+              >
+                Logout
+              </Typography>
+            </Box>
+
+            <Box
+              display={"flex"}
+              alignItems={"center"}
+              gap={2}
+              onClick={handleChangePassword}
+              sx={{ cursor: "pointer" }}
+            >
+              <Tooltip title="Change Password" placement="top" arrow>
+                <Password />
+              </Tooltip>
+              <Typography
+                variant="body2"
+                sx={{
+                  color: "#6B39F4",
+                  fontWeight: 600,
+                  fontSize: "16px",
+                  userSelect: "none",
+                  textDecoration: "underline",
+                }}
+              >
+                Change Password
+              </Typography>
+            </Box>
           </Box>
         </Box>
       </Box>

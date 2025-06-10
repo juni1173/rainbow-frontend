@@ -126,33 +126,6 @@ export default function SignIn() {
             {isLoading ? "Signing in..." : "Sign in"}
           </CustomButton>
 
-          {/* <CustomButton
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            disabled={isLoading}
-            sx={{ py: 1.5, mt: 1, position: "relative" }}
-          >
-            {isLoading ? (
-              <>
-                <CircularProgress
-                  size={24}
-                  sx={{
-                    color: "white",
-                    position: "absolute",
-                    left: "50%",
-                    top: "50%",
-                    marginTop: "-12px",
-                    marginLeft: "-12px",
-                  }}
-                />
-                Signing in...
-              </>
-            ) : (
-              "Sign in"
-            )}
-          </CustomButton> */}
         </Stack>
 
         {error && (

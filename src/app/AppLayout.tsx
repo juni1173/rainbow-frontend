@@ -5,6 +5,8 @@ import Sidebar from "@/components/Sidebar";
 import { Box } from "@mui/material";
 import { Provider } from "react-redux";
 import { store } from "@/redux/store";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -19,7 +21,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <Provider store={store}>
       {isAuthPage ? (
-        <>{children}</>
+        <>
+          {children}
+          <ToastContainer position="top-right" autoClose={3000} />
+        </>
       ) : (
         <Box
           sx={{
@@ -34,6 +39,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           </Box>
           <Box component="main" sx={{ flexGrow: 1, overflowY: "auto" }}>
             {children}
+            <ToastContainer position="top-right" autoClose={3000} />
           </Box>
         </Box>
       )}

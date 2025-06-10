@@ -1,0 +1,51 @@
+.margin {
+  margin-right: 8px;
+  margin-top: 9px;
+}
+.status {
+  border-radius: 50%;
+  width: 12;
+  height: 12;
+  display: inline-block;
+  margin-right: 8;
+}
+.menuItem {
+  color: var(--Grey-400, #98a2b3);
+  font-feature-settings: "cv03" on, "cv04" on;
+  font-family: Mulish;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 145%; /* 20.3px */
+}
+
+.avatar {
+  width: 24px;
+  height: 24px;
+  margin-right: 2px;
+  border-radius: 50%;
+}
+
+.selectWrapper {
+  width: 100%;
+  height: 47px;
+  .MuiOutlinedInput-notchedOutline {
+    border-color: default;
+  }
+  &:hover .MuiOutlinedInput-notchedOutline {
+    border-color: rgba(0, 193, 212, 1);
+    // border-color: "rgba(224, 224, 224, 1)";
+  }
+  &.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: rgba(0, 193, 212, 1);
+  }
+  .MuiSelect-select {
+    padding-right: 32px;
+    display: flex;
+    align-items: center;
+  }
+  .MuiOutlinedInput-input {
+    display: flex;
+    align-items: center;
+  }
+}

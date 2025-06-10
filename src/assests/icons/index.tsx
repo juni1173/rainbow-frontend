@@ -24,6 +24,8 @@ import Details from "./Details.svg";
 import Bell from "./Bell.svg";
 import UrgentBlue from "./UrgentBlue.svg";
 import Add from "./Add.svg";
+import MailBlack from "./MailBlack.svg";
+import Copy from "./Copy.svg";
 export {
   LeadsIcon,
   UserIcon,
@@ -51,4 +53,6 @@ export {
   Details,
   UrgentBlue,
   Add,
+  MailBlack,
+  Copy,
 };
