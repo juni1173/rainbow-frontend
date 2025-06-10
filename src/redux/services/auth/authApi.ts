@@ -33,7 +33,7 @@ export const authApi = createApi({
       { session: string; new_password: string; email: string }
     >({
       query: (body) => ({
-        url: "changePass/firstLogIn",
+        url: "/auth/changePass/firstLogIn",
         method: "POST",
         body,
       }),

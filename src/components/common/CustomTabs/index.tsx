@@ -77,8 +77,7 @@ const CustomTabs: React.FC<CustomMuiTabsProps> = ({
             hidden={value !== index}
             id={`custom-tabpanel-${index}`}
             aria-labelledby={`custom-tab-${index}`}
-          >
-          </div>
+          ></div>
         ))}
       </Box>
     </Box>

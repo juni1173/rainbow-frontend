@@ -23,7 +23,7 @@ export default function ForgotPassword() {
   >("info");
 
   const router = useRouter();
-  const [forgotPassword] = useForgotPasswordMutation();
+  const [forgotPassword, { isLoading }] = useForgotPasswordMutation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -125,11 +125,14 @@ export default function ForgotPassword() {
             variant="contained"
             color="primary"
             sx={{ py: 1.5, mt: 1 }}
+            disabled={isLoading}
           >
             Send Code
           </CustomButton>
         </Stack>
-
+        <Typography variant="body2" align="center" mt={4}>
+          <Link href="/auth/sign-in">Back to sign in</Link>
+        </Typography>
         {message && (
           <Alert severity={severity} sx={{ mt: 2 }}>
             {message}

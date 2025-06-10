@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import CustomTextField from "@/components/common/CustomTextfield";
 import CustomButton from "@/components/common/CustomButton";
 import { useFirstLoginPasswordMutation } from "@/redux/services/auth/authApi";
+import Cookies from "js-cookie";
 
 const FirstLoginPassword = () => {
   const router = useRouter();
@@ -31,7 +32,6 @@ const FirstLoginPassword = () => {
       setError("Session is missing. Please sign in again.");
     }
   }, []);
- 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -59,7 +59,10 @@ const FirstLoginPassword = () => {
       const response = await firstLoginPassword(payload).unwrap();
 
       // Success logic
-      sessionStorage.removeItem("auth_session");
+      // sessionStorage.removeItem("auth_session");
+      sessionStorage.setItem("id_token", response.id_token);
+      sessionStorage.setItem("auth_email", email);
+      Cookies.set("id_token", response.id_token);
       router.push("/dashboard");
     } catch (err: any) {
       setError(err?.data?.message || "Failed to reset password.");
