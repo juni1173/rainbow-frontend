@@ -4,8 +4,10 @@ import StatusTag from "./StatusTag";
 import ActionButtons from "./ActionButtons";
 import { Cold, Typing, Urgent } from "@/assests/icons";
 import StatusButton from "./StatusButton";
+import { useRouter } from "next/navigation";
 
 interface LeadCardProps {
+  lead_id: string;
   name: string;
   initials: string;
   isGoingCold?: boolean;
@@ -13,18 +15,22 @@ interface LeadCardProps {
   serviceName: string;
   message: string;
   avatarUrl?: string;
+  tag?: string;
 }
 
 const LeadCard = ({
+  lead_id,
   name,
   initials,
   isGoingCold = false,
   serviceType,
   serviceName,
   message,
+  tag,
 
   avatarUrl,
 }: LeadCardProps) => {
+  const router = useRouter();
   return (
     <Box
       sx={{
@@ -38,7 +44,9 @@ const LeadCard = ({
         boxSizing: "border-box",
         backgroundColor: "#F6F8FA",
         // flexWrap:"wrap"
+        cursor: "pointer",
       }}
+      onClick={() => router.push(`/dashboard/${lead_id}`)} // <-- navigate to dynamic route
     >
       <Box display="flex" width="30%" gap={2}>
         <Avatar
@@ -59,33 +67,39 @@ const LeadCard = ({
           <Stack direction="row" spacing={1} alignItems="center">
             <Typography variant="body1">{name}</Typography>
             <Box sx={{ display: { sm: "none", md: "block" } }}>
-              {isGoingCold ? (
+              {tag?.toLowerCase() === "going cold" ? (
                 <StatusTag
                   label="Going Cold"
                   color="#FAEDCC"
                   icon={<Cold sx={{ fontSize: 16 }} />}
                 />
               ) : (
-                <StatusTag label="Urgent" color="#FFF0F3" icon={<Urgent />} />
+                <StatusTag
+                  label={tag || "Urgent"}
+                  color="#FFF0F3"
+                  icon={<Urgent />}
+                />
               )}
             </Box>
           </Stack>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-              borderRadius: "8px",
-              padding: "6px 10px",
-              background: "#ECEFF3",
-              color: "#36394A",
-            }}
-          >
-            <Typing />
-            <Typography variant="subtitle1" color="text.secondary">
-              {serviceType}
-            </Typography>
-          </Box>
+          {message !== "No message available" && (
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                borderRadius: "8px",
+                padding: "6px 10px",
+                background: "#ECEFF3",
+                color: "#36394A",
+              }}
+            >
+              <Typing />
+              <Typography variant="subtitle1" color="text.secondary">
+                {serviceType}
+              </Typography>
+            </Box>
+          )}
         </Stack>
       </Box>
 

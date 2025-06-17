@@ -16,7 +16,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     pathname === "/auth/login-password" ||
     pathname === "/auth/forgot-password" ||
     pathname === "/auth/reset-password" ||
-    pathname === "/auth/self-change-password";
+    pathname === "/auth/self-change-password" ||
+    pathname === "/profile";
 
   return (
     <Provider store={store}>

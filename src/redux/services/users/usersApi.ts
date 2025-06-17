@@ -1,4 +1,3 @@
-// src/redux/services/usersApi.ts
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const usersApi = createApi({
@@ -39,6 +38,9 @@ export const usersApi = createApi({
         body: { email },
       }),
     }),
+    getCurrentUser: builder.query<any, void>({
+      query: () => `users/me`,
+    }),
   }),
 });
 
@@ -46,4 +48,5 @@ export const {
   useGetUsersQuery,
   useCreateUserMutation,
   useDeactivateUserMutation,
+  useGetCurrentUserQuery
 } = usersApi;

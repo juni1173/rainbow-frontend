@@ -13,8 +13,9 @@ import {
 import Logo from "../../assests/images/logo.png";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Logout, Password } from "@mui/icons-material";
+import { Logout, Password, VerifiedUserOutlined } from "@mui/icons-material";
 import { useLogOutMutation } from "@/redux/services/auth/authApi";
+import { UserIcon } from "@/assests/icons";
 
 const Sidebar = () => {
   const [activeButton, setActiveButton] = useState("admin");
@@ -36,11 +37,7 @@ const Sidebar = () => {
       await logOut({ token }).unwrap();
       Cookies.remove("id_token");
       sessionStorage.clear();
-      // setTimeout(() => {
-      //   setLoading(false);
 
-      //   router.replace("/auth/sign-in");
-      // }, 1000);
       setLoggedOut(true);
 
       router.replace("/auth/sign-in");
@@ -49,9 +46,9 @@ const Sidebar = () => {
       alert(error?.data?.message || "Logout failed.");
     }
   };
-  const handleChangePassword = () => {
-    setLoading(true);
-    router.push("/auth/self-change-password");
+  const handleGoToProfile = () => {
+    setActiveSidebarItem("Profile");
+    router.push("/profile");
   };
 
   const pathMap: Record<string, string> = {
@@ -212,23 +209,22 @@ const Sidebar = () => {
               display={"flex"}
               alignItems={"center"}
               gap={2}
-              onClick={handleChangePassword}
+              onClick={handleGoToProfile}
               sx={{ cursor: "pointer" }}
             >
-              <Tooltip title="Change Password" placement="top" arrow>
-                <Password />
-              </Tooltip>
+              <VerifiedUserOutlined />
               <Typography
                 variant="body2"
                 sx={{
                   color: "#6B39F4",
+
                   fontWeight: 600,
                   fontSize: "16px",
                   userSelect: "none",
                   textDecoration: "underline",
                 }}
               >
-                Change Password
+                Profile
               </Typography>
             </Box>
           </Box>

@@ -16,6 +16,8 @@ import CustomTextField from "@/components/common/CustomTextfield";
 import { CloseRounded } from "@mui/icons-material";
 import CustomSelect from "@/components/common/CustomSelect";
 import { Controller } from "react-hook-form";
+import { useCreateLeadMutation } from "@/redux/services/leads/leadsApi";
+import { toast } from "react-toastify";
 
 const AddLeadModal = ({
   open,
@@ -28,12 +30,22 @@ const AddLeadModal = ({
     control,
     register,
     handleSubmit,
+    reset,
     formState: { isSubmitting },
   } = useForm();
+  const [createLead, { isLoading }] = useCreateLeadMutation();
 
   const onSubmit = async (data: any) => {
-    console.log("New Lead:", data);
-    onClose();
+    try {
+      const payload = [data];
+      await createLead(payload).unwrap();
+      toast.success("Lead created successfully!");
+      onClose();
+      reset();
+    } catch (error) {
+      console.error("Failed to create lead:", error);
+      toast.error("Failed to create lead");
+    }
   };
 
   return (
@@ -140,7 +152,7 @@ const AddLeadModal = ({
           <CustomButton
             type="submit"
             variant="contained"
-            disabled={isSubmitting}
+            disabled={isSubmitting || isLoading}
           >
             {isSubmitting ? (
               <CircularProgress size={20} sx={{ color: "#fff" }} />
