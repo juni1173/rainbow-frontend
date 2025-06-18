@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   Dialog,
   DialogActions,
@@ -14,7 +14,6 @@ import CustomButton from "@/components/common/CustomButton";
 import { MailBlack } from "@/assests/icons";
 import CloseIcon from "@mui/icons-material/Close";
 import { useForm } from "react-hook-form";
-import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -39,7 +38,6 @@ const AddNewUserModal = ({ open, onClose, refetchUsers }: any) => {
 
   const watchUserName = watch("userName");
   const watchEmail = watch("email");
-  const token = Cookies.get("id_token");
 
   const onSubmit = async (formData: any) => {
     try {
@@ -51,14 +49,15 @@ const AddNewUserModal = ({ open, onClose, refetchUsers }: any) => {
       if (refetchUsers) {
         refetchUsers();
       }
-      toast.success("User added successfully 🎉");
+      toast.success("User added successfully ");
       reset();
       onClose();
       console.log("User created:", result);
-      onClose();
     } catch (error) {
       toast.error("Failed to add user");
 
+      reset();
+      onClose();
       console.error("User creation failed:", error);
     }
   };
@@ -110,9 +109,20 @@ const AddNewUserModal = ({ open, onClose, refetchUsers }: any) => {
             type="submit"
             color="primary"
             variant="contained"
-            disabled={!watchUserName || !watchEmail || !isValid}
+            disabled={
+              !watchUserName?.trim() ||
+              !watchEmail?.trim() ||
+              !isValid ||
+              isLoading
+            }
+            sx={{
+              minWidth: 140,
+              height: 40,
+              position: "relative",
+              fontWeight: 600,
+            }}
           >
-            Add New User
+            {isLoading ? "Adding User....." : "Add New User"}
           </CustomButton>
         </DialogActions>
       </form>

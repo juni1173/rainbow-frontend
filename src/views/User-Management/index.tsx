@@ -5,7 +5,9 @@ import {
   Typography,
   Divider,
   CircularProgress,
-  Tooltip,
+  Dialog,
+  DialogTitle,
+  DialogActions,
 } from "@mui/material";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import AddNewUserModal from "./AddUserModal";
@@ -18,20 +20,33 @@ import {
   useDeactivateUserMutation,
   useGetUsersQuery,
 } from "@/redux/services/users/usersApi";
+import { toast } from "react-toastify";
 
 const UserManagement = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [activeTab, setActiveTab] = useState("Admin Dashboard");
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [selectedUserEmail, setSelectedUserEmail] = useState<string | null>(
+    null
+  );
 
-  const { data: users, isLoading, isError, refetch } = useGetUsersQuery();
-  const [deactivateUser] = useDeactivateUserMutation();
+  const {
+    data: users,
+    isLoading: isUsersLoading,
+    isError,
+    refetch,
+  } = useGetUsersQuery();
+
+  const [deactivateUser, { isLoading: isDeactivating }] =
+    useDeactivateUserMutation();
 
   const handleDeactivate = async (email: string) => {
     try {
       await deactivateUser({ email }).unwrap();
       refetch();
+      toast.success("User deactivated successfully");
     } catch (error) {
       console.error("Failed to deactivate user:", error);
     }
@@ -56,9 +71,9 @@ const UserManagement = () => {
         <Typography variant="h6" gutterBottom fontSize={24} fontWeight={600}>
           User management
         </Typography>
-        <Box sx={{ height: "440px", overflowY: "auto" }}>
+        <Box sx={{ height: "350px", overflowY: "auto" }}>
           <Box mt={2}>
-            {isLoading && <CircularProgress size={24} />}
+            {isUsersLoading && <CircularProgress size={24} />}
             {isError && (
               <Typography color="error">Failed to load users.</Typography>
             )}
@@ -104,7 +119,10 @@ const UserManagement = () => {
                       textAlign="right"
                       pr={6}
                       sx={{ cursor: "pointer" }}
-                      onClick={() => handleDeactivate(user.email)}
+                      onClick={() => {
+                        setSelectedUserEmail(user.email);
+                        setConfirmOpen(true);
+                      }}
                     >
                       <DeleteOutline />
                     </Box>
@@ -120,7 +138,7 @@ const UserManagement = () => {
             refetchUsers={refetch}
           />
         </Box>
-        <Box mt={4}>
+        <Box mt={2}>
           <CustomButton
             variant="outlined"
             color="primary"
@@ -137,6 +155,68 @@ const UserManagement = () => {
           </CustomButton>
         </Box>
       </Box>
+      <Dialog
+        open={confirmOpen}
+        onClose={() => setConfirmOpen(false)}
+        PaperProps={{
+          sx: {
+            padding: "14px 10px",
+          },
+        }}
+      >
+        <DialogTitle
+          sx={{
+            fontSize: "18px",
+            fontWeight: 500,
+            paddingBottom: 0,
+          }}
+        >
+          <Typography variant="h6" fontWeight={600} mb={2}>
+            Are you sure you want to deactivate this user?
+          </Typography>
+        </DialogTitle>
+
+        <DialogActions
+          sx={{
+            mt: 5,
+            display: "flex",
+            justifyContent: "flex-end",
+            gap: 1.5,
+            paddingTop: 0,
+          }}
+        >
+          <CustomButton
+            onClick={() => {
+              setConfirmOpen(false);
+              setSelectedUserEmail(null);
+            }}
+            variant="outlined"
+          >
+            Cancel
+          </CustomButton>
+          <CustomButton
+            onClick={async () => {
+              if (selectedUserEmail) {
+                await handleDeactivate(selectedUserEmail);
+                setConfirmOpen(false);
+                setSelectedUserEmail(null);
+              }
+            }}
+            variant="contained"
+            background="red"
+            disabled={isDeactivating}
+            sx={{
+              minWidth: 120,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "#FF4D4F",
+            }}
+          >
+            {isDeactivating ? "Deactivating....." : "Deactivate"}
+          </CustomButton>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };
