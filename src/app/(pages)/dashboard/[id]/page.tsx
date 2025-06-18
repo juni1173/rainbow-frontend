@@ -14,15 +14,13 @@
 // }
 // app/dashboard/[id]/page.tsx or similar path
 
-import React from "react";
+// app/dashboard/[id]/page.tsx
 import LeadDetails from "@/views/Lead-Details";
 
-type Props = {
-  params: {
-    id: string;
-  };
-};
-
-export default function LeadDetailsPage({ params }: Props) {
+export default function LeadDetailsPage({
+  params,
+}: {
+  params: { id: string };
+}) {
   return <LeadDetails leadId={params.id} />;
 }
