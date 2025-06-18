@@ -6,6 +6,7 @@ interface LeadCardProps {
   serviceName: string;
   message: string;
   avatarUrl?: string;
+  tag?: string;
 }
 export const tabItems = [
   { label: "All" },

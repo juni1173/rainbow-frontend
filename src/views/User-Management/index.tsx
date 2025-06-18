@@ -189,6 +189,7 @@ const UserManagement = () => {
             onClick={() => {
               setConfirmOpen(false);
               setSelectedUserEmail(null);
+              
             }}
             variant="outlined"
           >
@@ -210,7 +211,6 @@ const UserManagement = () => {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              backgroundColor: "#FF4D4F",
             }}
           >
             {isDeactivating ? "Deactivating....." : "Deactivate"}

@@ -5,8 +5,11 @@ import User from "../../assests/images/user.png";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
-
-const LeadHeader = () => {
+interface LeadHeaderProps {
+  name: string;
+  status: string;
+}
+const LeadHeader = ({ name, status }: LeadHeaderProps) => {
   const router = useRouter();
   const handleRouteBack = () => {
     router.push("/dashboard");
@@ -34,10 +37,10 @@ const LeadHeader = () => {
           <Image src={User} alt="user" />
           <Stack gap={1}>
             <Typography fontWeight={600} variant="h5" color="#0D0D12">
-              Danielle Patel
+              {name}
             </Typography>
             <Chip
-              label="Hot - Awaiting Response"
+              label={status}
               size="small"
               sx={{
                 background: "#FFF0F3",

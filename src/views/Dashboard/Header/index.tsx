@@ -9,7 +9,13 @@ const filterItems = [
   { label: "2 Month" },
   { label: "Year" },
 ];
-const Header = () => {
+const Header = ({
+  searchQuery,
+  setSearchQuery,
+}: {
+  searchQuery: string;
+  setSearchQuery: (val: string) => void;
+}) => {
   const [selectedValue, setSlectedValue] = useState<string>("");
 
   const handleSelect = (label: string | null) => {
@@ -35,7 +41,11 @@ const Header = () => {
       </Box>
       <Box display={"flex"} gap={2}>
         <CustomFilterSelect items={filterItems} onSelect={handleSelect} />
-        <CustomSearchField endIcon={<Search />} />
+        <CustomSearchField
+          endIcon={<Search />}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+        />
       </Box>
     </Box>
   );

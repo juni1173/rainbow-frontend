@@ -1,8 +1,8 @@
-import AiReach from "@/views/Ai-Reach";
+import AiReach from "@/views/Lead-Details";
 import React from "react";
 
 const page = () => {
-  return <AiReach />;
+  return <div>hello world ai reach</div>;
 };
 
 export default page;
