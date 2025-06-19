@@ -1,5 +1,11 @@
 "use client";
-import { Box, CircularProgress, Pagination, Stack } from "@mui/material";
+import {
+  Box,
+  CircularProgress,
+  Pagination,
+  Stack,
+  Typography,
+} from "@mui/material";
 import React, { useEffect, useMemo, useState } from "react";
 import LeadCard from "./LeadCard";
 import CustomTabs from "@/components/common/CustomTabs";
@@ -96,6 +102,17 @@ const Dashboard = () => {
             >
               <CircularProgress size={50} />
             </Box>
+          ) : leads.length === 0 ? (
+            <Box
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              mt={4}
+            >
+              <Typography variant="body1" color="textSecondary">
+                No data found
+              </Typography>
+            </Box>
           ) : (
             leads.map((lead: any, index: number) => {
               const truncate = (text: string = "", limit: number) =>
@@ -137,7 +154,11 @@ const Dashboard = () => {
         count={Math.ceil(totalCount / ITEMS_PER_PAGE)}
         onChange={(val) => setPage(val)}
       />
-      <AddLeadModal open={openModal} onClose={() => setOpenModal(false)} />
+      <AddLeadModal
+        open={openModal}
+        onClose={() => setOpenModal(false)}
+        refetchLeads={refetch}
+      />
     </Box>
   );
 };

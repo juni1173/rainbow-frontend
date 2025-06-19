@@ -22,9 +22,11 @@ import { toast } from "react-toastify";
 const AddLeadModal = ({
   open,
   onClose,
+  refetchLeads,
 }: {
   open: boolean;
   onClose: () => void;
+  refetchLeads: () => void;
 }) => {
   const {
     control,
@@ -42,6 +44,7 @@ const AddLeadModal = ({
       toast.success("Lead created successfully!");
       onClose();
       reset();
+      refetchLeads();
     } catch (error) {
       console.error("Failed to create lead:", error);
       toast.error("Failed to create lead");
