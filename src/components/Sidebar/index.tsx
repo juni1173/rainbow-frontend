@@ -30,22 +30,45 @@ const Sidebar = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
+  // const handleLogOut = async () => {
+  //   setLoading(true);
+  //   try {
+  //     const token = sessionStorage.getItem("id_token");
+  //     await logOut({ token }).unwrap();
+  //     Cookies.remove("id_token");
+  //     sessionStorage.clear();
+
+  //     setLoggedOut(true);
+
+  //     router.replace("/auth/sign-in");
+  //   } catch (error: any) {
+  //     setLoading(false);
+  //     alert(error?.data?.message || "Logout failed.");
+  //   }
+  // };
   const handleLogOut = async () => {
     setLoading(true);
     try {
       const token = sessionStorage.getItem("id_token");
-      await logOut({ token }).unwrap();
-      Cookies.remove("id_token");
-      sessionStorage.clear();
 
-      setLoggedOut(true);
+      if (token) {
+        await logOut({ token }).unwrap();
 
-      router.replace("/auth/sign-in");
+        sessionStorage.removeItem("id_token");
+        Cookies.remove("id_token");
+
+        setLoggedOut(true);
+        router.replace("/auth/sign-in");
+      } else {
+        setLoading(false);
+        alert("No token found, possibly already logged out.");
+      }
     } catch (error: any) {
       setLoading(false);
       alert(error?.data?.message || "Logout failed.");
     }
   };
+
   const handleGoToProfile = () => {
     setActiveSidebarItem("Profile");
     router.push("/profile");
