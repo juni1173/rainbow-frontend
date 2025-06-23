@@ -33,7 +33,7 @@ const AddLeadModal = ({
     register,
     handleSubmit,
     reset,
-    formState: { isSubmitting },
+    formState: { isSubmitting, errors },
   } = useForm();
   const [createLead, { isLoading }] = useCreateLeadMutation();
 
@@ -71,25 +71,36 @@ const AddLeadModal = ({
           <Box display="flex" flexDirection="column" gap={2}>
             <CustomTextField
               label="First Name"
-              {...register("first_name", { required: true })}
+              {...register("first_name", {
+                required: "First name is required",
+              })}
               placeholder="Enter first name"
+              error={!!errors.first_name}
+              helperText={
+                errors.first_name ? String(errors.first_name.message) : ""
+              }
             />
+
             <CustomTextField label="Last Name" {...register("last_name")} />
             <CustomTextField
               label="Email"
               type="email"
               placeholder="Enter email address"
-              {...register("email", { required: true })}
+              {...register("email", { required: "Email is required" })}
+              error={!!errors.email}
+              helperText={errors.email ? String(errors.email.message) : ""}
             />
             <CustomTextField
               label="Phone"
-              {...register("phone", { required: true })}
+              {...register("phone", { required: "Phone is required" })}
               placeholder="Enter phone number"
+              error={!!errors.phone}
+              helperText={errors.phone ? String(errors.phone.message) : ""}
             />
             <Controller
               name="inquiry_type"
               control={control}
-              rules={{ required: true }}
+              rules={{ required: "Inquiry type is required" }}
               render={({ field }) => (
                 <CustomSelect
                   label="Inquiry Type"
@@ -100,13 +111,19 @@ const AddLeadModal = ({
                     label: type,
                     value: type,
                   }))}
+                  error={!!errors.inquiry_type}
+                  helperText={
+                    errors.inquiry_type
+                      ? String(errors.inquiry_type.message)
+                      : ""
+                  }
                 />
               )}
             />
             <Controller
               name="inquiry_status"
               control={control}
-              rules={{ required: true }}
+              rules={{ required: "Inquiry status is required" }}
               render={({ field }) => (
                 <CustomSelect
                   label="Inquiry Status"
@@ -117,6 +134,12 @@ const AddLeadModal = ({
                     label: status,
                     value: status,
                   }))}
+                  error={!!errors.inquiry_status}
+                  helperText={
+                    errors.inquiry_status
+                      ? String(errors.inquiry_status.message)
+                      : ""
+                  }
                 />
               )}
             />
@@ -124,7 +147,7 @@ const AddLeadModal = ({
             <Controller
               name="tag"
               control={control}
-              rules={{ required: true }}
+              rules={{ required: "Tag is required" }}
               render={({ field }) => (
                 <CustomSelect
                   label="Tag"
@@ -132,6 +155,8 @@ const AddLeadModal = ({
                   value={field.value}
                   onChange={field.onChange}
                   options={tags.map((tag) => ({ label: tag, value: tag }))}
+                  error={!!errors.tag}
+                  helperText={errors.tag ? String(errors.tag.message) : ""}
                 />
               )}
             />

@@ -84,7 +84,7 @@ const CallLogsSection = () => {
         alignItems="center"
         spacing={1}
         mb={1}
-        mt={showCallInvitation ? 0.1: 3}
+        mt={showCallInvitation ? 0.1 : 3}
         sx={{ color: "#7E57C2", fontWeight: 600, cursor: "pointer" }}
         px={0.5}
       >
@@ -162,7 +162,7 @@ const CallLogsSection = () => {
           justifyContent={"end"}
           mt={2}
         >
-          {!isEditing && <CustomButton variant="outlined">Defer</CustomButton>}
+          {/* {!isEditing && <CustomButton variant="outlined">Defer</CustomButton>} */}
           {!isEditing && (
             <CustomButton variant="outlined" onClick={handleEditClick}>
               Edit Message

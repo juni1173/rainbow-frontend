@@ -2,7 +2,7 @@ import { TextFieldProps } from "@mui/material";
 import { ChangeEvent, MouseEventHandler, ReactNode } from "react";
 
 export type CustomTextFieldProps = TextFieldProps & {
-  helperText?: any;
+  helperText?: string | React.ReactNode;
   placeholder?: string;
   startIcon?: ReactNode;
   endIcon?: ReactNode;

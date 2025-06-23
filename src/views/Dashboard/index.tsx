@@ -26,7 +26,7 @@ const Dashboard = () => {
   const isAll = activeTab === "All";
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [debouncedSearch] = useDebounce(searchQuery, 600);
+  const [debouncedSearch] = useDebounce(searchQuery, 1000);
 
   const { data, isLoading, isFetching, refetch } = useGetLeadsQuery({
     tag: isAll ? undefined : activeTab,

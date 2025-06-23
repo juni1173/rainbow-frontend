@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import CustomTextField from "@/components/common/CustomTextfield";
 import CustomButton from "@/components/common/CustomButton";
 import { useResetPasswordMutation } from "@/redux/services/auth/authApi";
+import { IconButton, InputAdornment } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const Page = () => {
   const router = useRouter();
@@ -14,6 +16,8 @@ const Page = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [email, setMail] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const toggleShowPassword = () => setShowPassword((prev) => !prev);
 
   const [resetPassword] = useResetPasswordMutation();
 
@@ -117,14 +121,32 @@ const Page = () => {
         </Typography>
 
         <Stack gap={2}>
-          <CustomTextField
+          {/* <CustomTextField
             label="New Password"
             type="password"
             fullWidth
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
             placeholder="Write new password"
+          /> */}
+          <CustomTextField
+            label="New Password"
+            type={showPassword ? "text" : "password"}
+            fullWidth
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+            placeholder="Write new password"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={toggleShowPassword} edge="end">
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
+
           <CustomTextField
             label="Confirmation Code"
             fullWidth
