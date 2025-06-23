@@ -9,7 +9,8 @@ import {
   CircularProgress,
 } from "@mui/material";
 import Cookies from "js-cookie";
-
+import { IconButton, InputAdornment } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import CustomTextField from "@/components/common/CustomTextfield";
@@ -24,6 +25,8 @@ export default function SignIn() {
   const [error, setError] = useState("");
   const [redirecting, setRedirecting] = useState(false);
 
+  const [showPassword, setShowPassword] = useState(false);
+  const toggleShowPassword = () => setShowPassword((prev) => !prev);
   const router = useRouter();
   const dispatch = useDispatch();
   const [signIn, { isLoading }] = useSignInMutation();
@@ -107,13 +110,30 @@ export default function SignIn() {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter your email"
           />
-          <CustomTextField
+          {/* <CustomTextField
             label="Password"
             type="password"
             fullWidth
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter your password"
+          /> */}
+          <CustomTextField
+            label="Password"
+            type={showPassword ? "text" : "password"}
+            fullWidth
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter your password"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={toggleShowPassword} edge="end">
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
 
           <CustomButton
@@ -125,7 +145,6 @@ export default function SignIn() {
           >
             {isLoading ? "Signing in..." : "Sign in"}
           </CustomButton>
-
         </Stack>
 
         {error && (

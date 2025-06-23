@@ -147,7 +147,7 @@ const LeadDetailsSidebar = ({ data }: any) => {
           </Box>
           {isEditing ? (
             <CustomSelect
-              label="Select Inquiry Type"
+              // label="Select Inquiry Type"
               value={inquiryType}
               onChange={(e) => setInquiryType(e.target.value)}
               options={inquiryTypeOptions}
@@ -166,7 +166,7 @@ const LeadDetailsSidebar = ({ data }: any) => {
           </Typography>
           {isEditing ? (
             <CustomSelect
-              label="Select Status"
+              // label="Select Status"
               value={inquiryStatus}
               onChange={(e) => setInquiryStatus(e.target.value)}
               options={inquiryStatusOptions}
@@ -193,7 +193,7 @@ const LeadDetailsSidebar = ({ data }: any) => {
           </Typography>
           {isEditing ? (
             <CustomSelect
-              label="Select Tag"
+              // label="Select Tag"
               value={tag}
               onChange={(e) => setTag(e.target.value)}
               options={tagOptions}
@@ -244,6 +244,15 @@ const LeadDetailsSidebar = ({ data }: any) => {
 
         {isEditing && (
           <Box display="flex" justifyContent="flex-end">
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={() => setIsEditing(false)}
+              sx={{ marginRight: 2 }}
+              disabled={isUpdating}
+            >
+              Cancel
+            </Button>
             <Button
               variant="contained"
               color="primary"

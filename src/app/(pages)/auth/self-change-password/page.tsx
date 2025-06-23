@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import CustomTextField from "@/components/common/CustomTextfield";
 import CustomButton from "@/components/common/CustomButton";
 import { useSelfChangePasswordMutation } from "@/redux/services/auth/authApi";
+import { IconButton, InputAdornment } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const SelfChangePassword = () => {
   const router = useRouter();
@@ -16,6 +18,13 @@ const SelfChangePassword = () => {
   const [severity, setSeverity] = useState<
     "error" | "success" | "info" | "warning"
   >("info");
+
+  const [showPrevPassword, setShowPrevPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+
+  const toggleShowPrevPassword = () => setShowPrevPassword((prev) => !prev);
+  const toggleShowNewPassword = () => setShowNewPassword((prev) => !prev);
+
   const [selfChangePassword] = useSelfChangePasswordMutation();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -80,20 +89,55 @@ const SelfChangePassword = () => {
         </Typography>
 
         <Stack gap={2}>
-          <CustomTextField
+          {/* <CustomTextField
             label="Previous Password"
             type="password"
             fullWidth
             onChange={(e) => setPrevPassword(e.target.value)}
             placeholder="Write Previous password"
-          />
+          /> */}
           <CustomTextField
+            label="Previous Password"
+            type={showPrevPassword ? "text" : "password"}
+            fullWidth
+            value={prevPassword}
+            onChange={(e) => setPrevPassword(e.target.value)}
+            placeholder="Write Previous password"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={toggleShowPrevPassword} edge="end">
+                    {showPrevPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+
+          {/* <CustomTextField
             label="New Password"
             type="password"
             fullWidth
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter new password"
+          /> */}
+          <CustomTextField
+            label="New Password"
+            type={showNewPassword ? "text" : "password"}
+            fullWidth
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter new password"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={toggleShowNewPassword} edge="end">
+                    {showNewPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
         </Stack>
 

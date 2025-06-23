@@ -4,16 +4,19 @@ import { Box, Typography, Button, Chip, Stack, Divider } from "@mui/material";
 import User from "../../assests/images/user.png";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
+import { Refresh } from "@mui/icons-material";
 interface LeadHeaderProps {
   name: string;
   status: string;
+  onRefreshClick: () => void;
 }
-const LeadHeader = ({ name, status }: LeadHeaderProps) => {
+const LeadHeader = ({ name, status, onRefreshClick }: LeadHeaderProps) => {
   const router = useRouter();
   const handleRouteBack = () => {
     router.push("/dashboard");
   };
+
   return (
     <>
       <Box
@@ -52,25 +55,38 @@ const LeadHeader = ({ name, status }: LeadHeaderProps) => {
             />
           </Stack>
         </Box>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-            borderRadius: "8px",
-            padding: "6px 10px",
-            background: "#ECEFF3",
-            color: "#36394A",
-          }}
-        >
-          <Call />
-          <Typography
-            variant="subtitle1"
-            color="text.secondary"
-            sx={{ cursor: "pointer" }}
+        <Box display={"flex"} alignItems="center" gap={2}>
+          <Refresh
+            onClick={onRefreshClick}
+            sx={{
+              cursor: "pointer",
+              color: "#0062FF",
+              "&:hover": {
+                color: "#004BB5",
+              },
+            }}
+          />
+
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              borderRadius: "8px",
+              padding: "6px 10px",
+              background: "#ECEFF3",
+              color: "#36394A",
+            }}
           >
-            Call logs
-          </Typography>
+            <Call />
+            <Typography
+              variant="subtitle1"
+              color="text.secondary"
+              sx={{ cursor: "pointer" }}
+            >
+              Call logs
+            </Typography>
+          </Box>
         </Box>
       </Box>
       <Divider sx={{ marginX: "-30px", borderColor: "#DFE1E7" }} />

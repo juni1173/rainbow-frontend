@@ -1,16 +1,19 @@
 "use client";
 import { Box, CircularProgress } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import LeadHeader from "./LeadHeader";
 import LeadChatSection from "./LeadChat";
 import CallLogsSection from "./LeadCallLog";
 import LeadDetailsSidebar from "./LeadDetailSidebar";
 import ChatInputBox from "./ChatInputBox";
 import { useGetLeadByIdQuery } from "@/redux/services/leads/leadsApi";
+import { useGetConversationQuery } from "@/redux/services/conversation/conversationApi";
 
 const LeadDetails = ({ leadId }: { leadId: string }) => {
+  const [refreshChat, setRefreshChat] = useState(0);
   const { data, isLoading, error, isFetching, refetch } =
     useGetLeadByIdQuery(leadId);
+
   useEffect(() => {
     refetch();
   }, []);
@@ -37,10 +40,14 @@ const LeadDetails = ({ leadId }: { leadId: string }) => {
 
   return (
     <Box sx={{ padding: "20px 32px 32px 32px" }}>
-      <LeadHeader name={name} status={status} />
+      <LeadHeader
+        name={name}
+        status={status}
+        onRefreshClick={() => setRefreshChat((prev) => prev + 1)}
+      />
       <Box display="flex" flexGrow={1}>
         <Box width="75%" bgcolor="#fff" paddingRight={"32px"}>
-          <LeadChatSection />
+          <LeadChatSection refreshTrigger={refreshChat} leadId={leadId} />
           <CallLogsSection />
           <ChatInputBox />
         </Box>

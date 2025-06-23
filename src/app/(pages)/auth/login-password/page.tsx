@@ -6,7 +6,8 @@ import CustomTextField from "@/components/common/CustomTextfield";
 import CustomButton from "@/components/common/CustomButton";
 import { useFirstLoginPasswordMutation } from "@/redux/services/auth/authApi";
 import Cookies from "js-cookie";
-
+import { IconButton, InputAdornment } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 const FirstLoginPassword = () => {
   const router = useRouter();
   const [session, setSession] = useState("");
@@ -15,9 +16,13 @@ const FirstLoginPassword = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [email, setMail] = useState("");
-
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [firstLoginPassword] = useFirstLoginPasswordMutation();
 
+  const toggleShowPassword = () => setShowPassword((prev) => !prev);
+  const toggleShowConfirmPassword = () =>
+    setShowConfirmPassword((prev) => !prev);
   useEffect(() => {
     const storedSession = sessionStorage.getItem("auth_session");
     const storedEmail = sessionStorage.getItem("auth_email");
@@ -151,7 +156,7 @@ const FirstLoginPassword = () => {
         </Typography>
 
         <Stack gap={2}>
-          <CustomTextField
+          {/* <CustomTextField
             label="New Password"
             type="password"
             fullWidth
@@ -166,6 +171,41 @@ const FirstLoginPassword = () => {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             placeholder="Confirm new password"
+          /> */}
+          <CustomTextField
+            label="New Password"
+            type={showPassword ? "text" : "password"}
+            fullWidth
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+            placeholder="Write new password"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={toggleShowPassword} edge="end">
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+
+          <CustomTextField
+            label="Confirm Password"
+            type={showConfirmPassword ? "text" : "password"}
+            fullWidth
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            placeholder="Confirm new password"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={toggleShowConfirmPassword} edge="end">
+                    {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
         </Stack>
 
