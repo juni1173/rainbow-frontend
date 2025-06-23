@@ -5,6 +5,8 @@ import ActionButtons from "./ActionButtons";
 import { Cold, Typing, Urgent } from "@/assests/icons";
 import StatusButton from "./StatusButton";
 import { useRouter } from "next/navigation";
+import styles from "./style.module.scss";
+import { DisplaySettings, Height } from "@mui/icons-material";
 
 interface LeadCardProps {
   lead_id: string;
@@ -32,97 +34,95 @@ const LeadCard = ({
 }: LeadCardProps) => {
   const router = useRouter();
   return (
-    <Box
-      sx={{
-        height: "112px",
-        borderRadius: "12px",
-        border: "1px solid #DFE1E7",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        padding: "20px 32px",
-        boxSizing: "border-box",
-        backgroundColor: "#F6F8FA",
-        // flexWrap:"wrap"
-        cursor: "pointer",
-      }}
+    <Box className={styles.root}
       onClick={() => router.push(`/dashboard/${lead_id}`)} // <-- navigate to dynamic route
     >
-      <Box display="flex" width="30%" gap={2}>
-        <Avatar
+      <Box display="flex" width="30%" gap={2} className = {styles.secondaryRoot} 
+      >
+        <Avatar className={styles.avator}
           src={avatarUrl}
           sx={{
             bgcolor: "#D9EFFF",
-            height: "56px",
-            width: "56px",
             color: "#0062FF",
-            fontWeight: "600",
-            fontSize: "20px",
           }}
         >
           {initials}
         </Avatar>
 
-        <Stack spacing={1.5}>
-          <Stack direction="row" spacing={1} alignItems="center">
-            <Typography variant="body1">{name}</Typography>
-            <Box sx={{ display: { sm: "none", md: "block" } }}>
-              {tag?.toLowerCase() === "going cold" ? (
-                <StatusTag
-                  label="Going Cold"
-                  color="#FAEDCC"
-                  icon={<Cold sx={{ fontSize: 16 }} />}
-                />
-              ) : (
-                <StatusTag
-                  label={tag || "Urgent"}
-                  color="#FFF0F3"
-                  icon={<Urgent />}
-                />
-              )}
-            </Box>
-          </Stack>
-          {message !== "No message available" && (
-            <Box
+        <Stack>
+          <Stack spacing={1.5} className={styles.firstRow} 
+          >
+            <Stack direction="row" spacing={1} alignItems="center">
+              <Typography variant="body1" className={styles.name}
+              >{name}</Typography>
+
+              <Box
+              // sx={{ 
+              // display: { sm: "none", md: "block" },
+              // width: "auto",
+              // flexDirection: "row",
+              // }}
+              >
+                {tag?.toLowerCase() === "going cold" ? (
+                  <StatusTag
+                    label="Going Cold"
+                    color="#FAEDCC"
+                    icon={<Cold sx={{ fontSize: 16,
+                     }}
+                    />}
+                  />
+                ) : (
+                  <StatusTag
+                    label={tag || "Urgent"}
+                    color="#FFF0F3"
+                    icon={<Urgent />}
+                  />
+                )}
+              </Box>
+
+            </Stack>
+
+
+            {/* {message !== "No message available" && ( */}
+            <Box className = {styles.messageIconBox}
               sx={{
                 display: "flex",
                 alignItems: "center",
-                gap: "8px",
+                gap: { xs: "4px", sm: "6px", md: "8px" },
                 borderRadius: "8px",
-                padding: "6px 10px",
+                padding: { xs: "4px 6px", sm: "5px 8px", md: "6px 10px" },
                 background: "#ECEFF3",
-                color: "#36394A",
+                color: "#red",
+                fontSize: { xs: "10px", sm: "12px", md: "14px" },
+                fontWeight: 500,
               }}
+              
             >
               <Typing />
-              <Typography variant="subtitle1" color="text.secondary">
+              <Typography variant="subtitle1" color="text.secondary" className={styles.messageIconLable} 
+              >
                 {serviceType}
               </Typography>
             </Box>
-          )}
+            {/* )} */}
+          </Stack>
         </Stack>
+
       </Box>
 
-      <Box width="30%">
-        <Typography variant="body2" color="#666D80" mb={2.5}>
+      <Box width="30%" className={styles.serviceNameTypeBox}
+      >
+        <Typography variant="body2" color="#666D80" mb={2.5} className={styles.serviceName}
+        >
           {serviceName}
         </Typography>
-        <Typography variant="body1" fontSize={16} color="#0D0D12">
+        <Typography variant="body1" fontSize={16} color="#0D0D12" className={styles.message}
+        >
           {message}
         </Typography>
       </Box>
 
-      <Box
-        sx={{
-          width: {
-            xs: "100%",
-            md: "50%",
-            xl: "40%",
-          },
-        }}
-        display="flex"
-        justifyContent="flex-end"
-        gap={2}
+      <Box className={styles.icons}
       >
         {isGoingCold ? (
           serviceType.toLowerCase().startsWith("missed") ? (

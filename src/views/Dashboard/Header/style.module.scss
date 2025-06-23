@@ -1,0 +1,54 @@
+.root {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    row-gap: 16px;
+
+    @media(max-width: 340px){
+        margin-left: -23px;
+    }
+
+    @media(min-width: 600px) and (max-width: 640px){
+        margin-left: -30px;
+    }
+}
+
+.secondaryBox {
+    white-space: nowrap;
+
+    margin-right: 110px;
+
+    @media (min-width: 900px) {
+        margin-right: 80px;
+        margin-left: -30px;
+    }
+}
+
+.priorityResponses {
+    font-weight: 400;
+    color: #666D80;
+    margin-left: 8px !important;
+
+    @media (min-width: 900px) {
+        font-size: 16px !important;
+    }
+
+    @media (min-width: 1200px) {
+        font-size: 18px !important;
+    }
+}
+
+.filterAndSearchBox {
+    display: flex;
+    gap: 8px;
+    margin-right: 50px;
+
+    @media (min-width: 600px) {
+        margin-right: 60px;
+    }
+
+    @media (min-width: 900px) {
+        margin-left: -35px;
+    }
+}

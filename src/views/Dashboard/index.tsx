@@ -66,10 +66,10 @@ const Dashboard = () => {
         borderRadius="12px"
         padding={1}
         bgcolor="#fff"
-        boxShadow="0px 4px 12px rgba(0, 0, 0, 0.05)"
+        // boxShadow="0px 4px 12px rgba(0, 0, 0, 0.05)"
         mt={4}
       >
-        <Box mb={2.5} display="flex" justifyContent="space-between">
+        {/* <Box mb={2.5} display="flex" justifyContent="space-between">
           <CustomTabs tabs={tabsData} onTabChange={handleTabChange} />
           <Box
             display="flex"
@@ -84,7 +84,7 @@ const Dashboard = () => {
               Add New Lead
             </CustomButton>
           </Box>
-        </Box>
+        </Box> */}
 
         <Stack gap={1}>
           {loading || isLoading || isFetching ? (
@@ -117,6 +117,7 @@ const Dashboard = () => {
                   message={truncate(lead.content || "No message available", 50)}
                   avatarUrl={undefined}
                   tag={lead.tag || "Urgent"}
+                
                 />
               );
             })

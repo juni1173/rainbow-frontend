@@ -32,7 +32,7 @@ const statusStyles = {
     backgroundColor: 'transparent',
     textColor: '#7A4DF5',
     dotColor: '',
-    icon: <Meeting sx={{ fontSize: 18, color: '#8647F5' }} />,
+    icon: <Meeting sx={{ fontSize: { xs: 16, sm: 18, md: 20 }, color: '#8647F5' }} />,
     hasDot: false,
   },
 };
@@ -55,11 +55,11 @@ const StatusButton: React.FC<StatusButtonProps> = ({ type, label, onClick }) => 
         borderColor,
         backgroundColor,
         borderRadius: '24px',
-        height: 40,
-        px: 2,
+        height: { xs: 32, sm: 36, md: 40 },
+        px: { xs: 1.5, sm: 2, md: 2.5 },
         textTransform: 'none',
         fontWeight: 600,
-        fontSize: 14,
+        fontSize: { xs: 12, sm: 13, md: 14 },
         color: textColor,
         '&:hover': {
           backgroundColor,
@@ -67,7 +67,7 @@ const StatusButton: React.FC<StatusButtonProps> = ({ type, label, onClick }) => 
       }}
       startIcon={
         hasDot ? (
-          <FiberManualRecordIcon sx={{ fontSize: 12, color: dotColor }} />
+          <FiberManualRecordIcon sx={{ fontSize: { xs: 10, sm: 11, md: 12 }, color: dotColor }} />
         ) : (
           icon
         )
