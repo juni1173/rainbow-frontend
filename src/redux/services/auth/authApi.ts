@@ -1,18 +1,20 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import customBaseQuery from "../CustomBaseQuery";
 
 export const authApi = createApi({
   reducerPath: "authApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "https://ajzjuk1jch.execute-api.us-east-2.amazonaws.com/dev/",
-    prepareHeaders: (headers) => {
-      const token = sessionStorage.getItem("id_token");
-      if (token) {
-        headers.set("Authorization", `Bearer ${token}`);
-      }
-      headers.set("Content-Type", "application/json");
-      return headers;
-    },
-  }),
+  // baseQuery: fetchBaseQuery({
+  //   baseUrl: "https://ajzjuk1jch.execute-api.us-east-2.amazonaws.com/dev/",
+  //   prepareHeaders: (headers) => {
+  //     const token = sessionStorage.getItem("id_token");
+  //     if (token) {
+  //       headers.set("Authorization", `Bearer ${token}`);
+  //     }
+  //     headers.set("Content-Type", "application/json");
+  //     return headers;
+  //   },
+  // }),
+  baseQuery: customBaseQuery,
   endpoints: (builder) => ({
     signIn: builder.mutation<any, { email: string; password: string }>({
       query: (credentials) => ({

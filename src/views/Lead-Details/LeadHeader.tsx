@@ -1,11 +1,21 @@
 "use client";
 import { Back, Call, Urgent } from "@/assests/icons";
-import { Box, Typography, Button, Chip, Stack, Divider } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Button,
+  Chip,
+  Stack,
+  Divider,
+  Avatar,
+  CircularProgress,
+} from "@mui/material";
 import User from "../../assests/images/user.png";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import { Refresh } from "@mui/icons-material";
+import { getInitials } from "@/utils/GetInitials";
 interface LeadHeaderProps {
   name: string;
   status: string;
@@ -13,10 +23,23 @@ interface LeadHeaderProps {
 }
 const LeadHeader = ({ name, status, onRefreshClick }: LeadHeaderProps) => {
   const router = useRouter();
-  const handleRouteBack = () => {
-    router.push("/dashboard");
-  };
+  const [loading, setLoading] = useState(false);
 
+  const searchParams = useSearchParams();
+  const handleRouteBack = () => {
+    const page = searchParams.get("page") || "1";
+    router.push(`/dashboard?page=${page}`);
+
+    // router.push("/dashboard");
+  };
+  const initials = getInitials(name);
+  const handleRefreshClick = () => {
+    setLoading(true);
+    setTimeout(() => {
+      onRefreshClick();
+      setLoading(false);
+    }, 2000);
+  };
   return (
     <>
       <Box
@@ -36,8 +59,19 @@ const LeadHeader = ({ name, status, onRefreshClick }: LeadHeaderProps) => {
             }}
           >
             <Back onClick={handleRouteBack} />
+            {/* <Back onClick={() => router.back()} /> */}
           </Box>
-          <Image src={User} alt="user" />
+          <Avatar
+            sx={{
+              bgcolor: "#1976d2",
+              width: 60,
+              height: 60,
+              fontSize: 32,
+              mb: 2,
+            }}
+          >
+            {initials || "U"}
+          </Avatar>
           <Stack gap={1}>
             <Typography fontWeight={600} variant="h5" color="#0D0D12">
               {name}
@@ -56,17 +90,28 @@ const LeadHeader = ({ name, status, onRefreshClick }: LeadHeaderProps) => {
           </Stack>
         </Box>
         <Box display={"flex"} alignItems="center" gap={2}>
-          <Refresh
-            onClick={onRefreshClick}
-            sx={{
-              cursor: "pointer",
-              color: "#0062FF",
-              "&:hover": {
-                color: "#004BB5",
-              },
-            }}
-          />
-
+          {loading ? (
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              sx={{
+                width: 32,
+                height: 32,
+              }}
+            >
+              <CircularProgress size={24} sx={{ color: "#0062FF" }} />
+            </Box>
+          ) : (
+            <Refresh
+              onClick={handleRefreshClick}
+              sx={{
+                cursor: "pointer",
+                color: "#0062FF",
+                "&:hover": { color: "#004BB5" },
+              }}
+            />
+          )}
           <Box
             sx={{
               display: "flex",
