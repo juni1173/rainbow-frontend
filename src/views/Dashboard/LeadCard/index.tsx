@@ -2,7 +2,7 @@
 import { Box, Typography, Avatar, Stack, Button, Chip } from "@mui/material";
 import StatusTag from "./StatusTag";
 import ActionButtons from "./ActionButtons";
-import { Cold, Typing, Urgent } from "@/assests/icons";
+import { Cold, Typing, Urgent } from "@/src/assests/icons";
 import StatusButton from "./StatusButton";
 import { useRouter } from "next/navigation";
 
@@ -16,6 +16,7 @@ interface LeadCardProps {
   message: string;
   avatarUrl?: string;
   tag?: string;
+  page?: number;
 }
 
 const LeadCard = ({
@@ -27,7 +28,7 @@ const LeadCard = ({
   serviceName,
   message,
   tag,
-
+  page,
   avatarUrl,
 }: LeadCardProps) => {
   const router = useRouter();
@@ -46,7 +47,8 @@ const LeadCard = ({
         // flexWrap:"wrap"
         cursor: "pointer",
       }}
-      onClick={() => router.push(`/dashboard/${lead_id}`)} // <-- navigate to dynamic route
+      // onClick={() => router.push(`/dashboard/${lead_id}`)} // <-- navigate to dynamic route
+      onClick={() => router.push(`/dashboard/${lead_id}?page=${page}`)}
     >
       <Box display="flex" width="30%" gap={2}>
         <Avatar

@@ -18,7 +18,11 @@ export const conversationApi = createApi({
       query: ({ lead_ID, offset }) =>
         `conversations?lead_id=${lead_ID}&offset=${offset}`,
     }),
+    getSuggestions: builder.query<any, { lead_id: string }>({
+      query: ({ lead_id }) => `conversations/suggestion?lead_id=${lead_id}`,
+    }),
   }),
 });
 
-export const { useGetConversationQuery } = conversationApi;
+export const { useGetConversationQuery, useGetSuggestionsQuery } =
+  conversationApi;

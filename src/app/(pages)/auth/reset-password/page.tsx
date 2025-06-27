@@ -2,9 +2,9 @@
 import React, { useEffect, useState } from "react";
 import { Box, Container, Typography, Link, Stack } from "@mui/material";
 import { useRouter } from "next/navigation";
-import CustomTextField from "@/components/common/CustomTextfield";
-import CustomButton from "@/components/common/CustomButton";
-import { useResetPasswordMutation } from "@/redux/services/auth/authApi";
+import CustomTextField from "@/src/components/common/CustomTextfield";
+import CustomButton from "@/src/components/common/CustomButton";
+import { useResetPasswordMutation } from "@/src/redux/services/auth/authApi";
 import { IconButton, InputAdornment } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
@@ -134,7 +134,7 @@ const Page = () => {
             type={showPassword ? "text" : "password"}
             fullWidth
             value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
+            onChange={(e:any) => setNewPassword(e.target.value)}
             placeholder="Write new password"
             InputProps={{
               endAdornment: (

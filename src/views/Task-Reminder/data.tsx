@@ -1,4 +1,4 @@
-import { AssignTask, Meeting, Tasks } from "@/assests/icons";
+import { AssignTask, Meeting, Tasks } from "@/src/assests/icons";
 
 export const viewButtons = [
   { id: "list", icon: <AssignTask /> },

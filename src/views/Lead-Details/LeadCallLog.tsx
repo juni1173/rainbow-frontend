@@ -1,16 +1,39 @@
 "use client";
-import React, { useState, useRef } from "react";
-import { Box, Typography, Stack, Divider } from "@mui/material";
-import { Ai, Call, SmallPhone } from "@/assests/icons";
-import CustomButton from "@/components/common/CustomButton";
+import React, { useState, useRef, useEffect } from "react";
+import {
+  Box,
+  Typography,
+  Stack,
+  Divider,
+  CircularProgress,
+} from "@mui/material";
+import { Ai, Call, SmallPhone } from "@/src/assests/icons";
+import CustomButton from "@/src/components/common/CustomButton";
+import { useGetSuggestionsQuery } from "@/src/redux/services/conversation/conversationApi";
+import { useSendSmsMutation } from "@/src/redux/services/twilio/twilioApi";
 
-const CallLogsSection = () => {
+const CallLogsSection = ({ lead_id }: any) => {
+  const { data: SuggestionData, isLoading } = useGetSuggestionsQuery({
+    lead_id,
+  });
   const [isEditing, setIsEditing] = useState(false);
-  const [message, setMessage] = useState(
-    "Hi Danielle, would you be available for a call at 3:00 PM tomorrow?"
-  );
+  const [message, setMessage] = useState("");
+  console.log("lead id", lead_id);
   const [isEdited, setIsEdited] = useState(false);
   const [showCallInvitation, setShowCallInvitation] = useState(false);
+  const [sendSms] = useSendSmsMutation();
+  const SendMessage = async () => {
+    try {
+      const response = await sendSms({
+        lead_id: lead_id,
+        sms_content: message,
+      }).unwrap();
+      setShowCallInvitation(true);
+      setIsEditing(false);
+    } catch (err) {
+      console.error(" SMS Failed:", err);
+    }
+  };
 
   const originalMessage = useRef(message);
 
@@ -44,7 +67,23 @@ const CallLogsSection = () => {
   const handleDeclineSchedule = () => {
     setShowCallInvitation(false);
   };
-
+  useEffect(() => {
+    if (SuggestionData?.suggestion?.content) {
+      setMessage(SuggestionData.suggestion.content);
+    }
+  }, [SuggestionData]);
+  if (isLoading) {
+    return (
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="100vh"
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
   return (
     <Box
       sx={{
@@ -53,11 +92,12 @@ const CallLogsSection = () => {
         p: 2,
         maxWidth: "100%",
         backgroundColor: "#fff",
+        marginTop: "32px",
       }}
     >
       {!showCallInvitation && (
         <>
-          <Stack direction="row" alignItems="center" spacing={1} mb={2}>
+          {/* <Stack direction="row" alignItems="center" spacing={1} mb={2}>
             <Call />
             <Typography
               variant="body1"
@@ -74,8 +114,8 @@ const CallLogsSection = () => {
             >
               11:34AM
             </Typography>
-          </Stack>
-          <Divider sx={{ marginX: "-17px", borderColor: "#DFE1E7" }} />
+          </Stack> */}
+          {/* <Divider sx={{ marginX: "-17px", borderColor: "#DFE1E7" }} /> */}
         </>
       )}
 
@@ -115,7 +155,11 @@ const CallLogsSection = () => {
               whiteSpace: "pre-wrap",
             }}
           >
-            {message}
+            {!message ? (
+              <Typography color="error">No Suggestion Found!</Typography>
+            ) : (
+              <Box>{message}</Box>
+            )}
           </Box>
         ) : (
           <textarea
@@ -152,7 +196,8 @@ const CallLogsSection = () => {
         >
           MemoryArc wants schedule call with you tomorrow at 4:00 PM
         </Box>
-      )}
+      )
+      }
 
       {!showCallInvitation ? (
         <Box
@@ -183,7 +228,7 @@ const CallLogsSection = () => {
               variant="contained"
               background="#6B39F4"
               fontWeight="600px"
-              onClick={handleSendNowClick}
+              onClick={SendMessage}
             >
               Send Now
             </CustomButton>

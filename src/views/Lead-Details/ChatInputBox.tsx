@@ -5,12 +5,13 @@ import CallIcon from "@mui/icons-material/Call";
 import TaskIcon from "@mui/icons-material/Assignment";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import SendIcon from "@mui/icons-material/Send";
-import CustomButton from "@/components/common/CustomButton";
-import { AssignTask, Mark, SmallPhone } from "@/assests/icons";
+import CustomButton from "@/src/components/common/CustomButton";
+import { AssignTask, Mark, SmallPhone } from "@/src/assests/icons";
+import CallModal from "./CallModal";
 
-const ChatInputBox = () => {
+const ChatInputBox = ({ leadId }: any) => {
   const [message, setMessage] = useState("");
-
+  const [isCallOpen, setIsCallOpen] = useState(false);
   return (
     <Box
       sx={{
@@ -62,6 +63,7 @@ const ChatInputBox = () => {
             variant="outlined"
             startIcon={<SmallPhone />}
             fontWeight="600"
+            onClick={() => setIsCallOpen(true)}
           >
             Call via Twilio
           </CustomButton>
@@ -95,8 +97,15 @@ const ChatInputBox = () => {
           Send
         </CustomButton>
       </Box>
+      <CallModal
+        open={isCallOpen}
+        onClose={() => setIsCallOpen(false)}
+        leadId={leadId}
+        // phone={phone}
+      />
     </Box>
   );
 };
 
 export default ChatInputBox;
+// Twiliyo phone number +12187893464

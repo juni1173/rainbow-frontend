@@ -1,4 +1,4 @@
-import TaskReminder from "@/views/Task-Reminder";
+import TaskReminder from "@/src/views/Task-Reminder";
 import React from "react";
 
 const page = () => {

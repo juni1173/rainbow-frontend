@@ -13,10 +13,10 @@ import { IconButton, InputAdornment } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import CustomTextField from "@/components/common/CustomTextfield";
-import CustomButton from "@/components/common/CustomButton";
-import { useSignInMutation } from "@/redux/services/auth/authApi";
-import { setCredentials } from "@/redux/services/auth/authSlice";
+import CustomTextField from "@/src/components/common/CustomTextfield";
+import CustomButton from "@/src/components/common/CustomButton";
+import { useSignInMutation } from "@/src/redux/services/auth/authApi";
+import { setCredentials } from "@/src/redux/services/auth/authSlice";
 import Link from "next/link";
 
 export default function SignIn() {

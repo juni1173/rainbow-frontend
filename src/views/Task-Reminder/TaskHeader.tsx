@@ -2,8 +2,8 @@
 import { Box, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { viewButtons } from "./data";
-import CustomButton from "@/components/common/CustomButton";
-import { Add } from "@/assests/icons";
+import CustomButton from "@/src/components/common/CustomButton";
+import { Add } from "@/src/assests/icons";
 
 const TaskHeader = () => {
   const [activeButton, setActiveButton] = useState("list");

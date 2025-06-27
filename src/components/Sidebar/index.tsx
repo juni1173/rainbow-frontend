@@ -14,8 +14,8 @@ import Logo from "../../assests/images/logo.png";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Logout, Password, VerifiedUserOutlined } from "@mui/icons-material";
-import { useLogOutMutation } from "@/redux/services/auth/authApi";
-import { UserIcon } from "@/assests/icons";
+import { useLogOutMutation } from "@/src/redux/services/auth/authApi";
+// import { UserIcon } from "@/assests/icons";
 
 const Sidebar = () => {
   const [activeButton, setActiveButton] = useState("admin");
@@ -30,44 +30,39 @@ const Sidebar = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
+  // const handleLogOut = async () => {
+  //   setLoading(true);
+  //   try {
+  //     const token = sessionStorage.getItem("id_token");
+  //     await logOut({ token }).unwrap();
+  //     Cookies.remove("id_token");
+  //     sessionStorage.clear();
+
+  //     setLoggedOut(true);
+
+  //     router.replace("/auth/sign-in");
+  //   } catch (error: any) {
+  //     setLoading(false);
+  //     alert(error?.data?.message || "Logout failed.");
+  //   }
+  // };
   const handleLogOut = async () => {
     setLoading(true);
     try {
-      const token = sessionStorage.getItem("id_token");
+      const token = Cookies.get("id_token"); // Read from cookie
+      if (!token) throw new Error("Token missing.");
+
       await logOut({ token }).unwrap();
+
       Cookies.remove("id_token");
-      sessionStorage.clear();
-
+      sessionStorage.clear(); // just in case
       setLoggedOut(true);
-
       router.replace("/auth/sign-in");
     } catch (error: any) {
       setLoading(false);
       alert(error?.data?.message || "Logout failed.");
     }
   };
-  // const handleLogOut = async () => {
-  //   setLoading(true);
-  //   try {
-  //     const token = sessionStorage.getItem("id_token");
-
-  //     if (token) {
-  //       await logOut({ token }).unwrap();
-
-  //       sessionStorage.removeItem("id_token");
-  //       Cookies.remove("id_token");
-
-  //       setLoggedOut(true);
-  //       router.replace("/auth/sign-in");
-  //     } else {
-  //       setLoading(false);
-  //       alert("No token found, possibly already logged out.");
-  //     }
-  //   } catch (error: any) {
-  //     setLoading(false);
-  //     alert(error?.data?.message || "Logout failed.");
-  //   }
-  // };
 
   const handleGoToProfile = () => {
     setActiveSidebarItem("Profile");

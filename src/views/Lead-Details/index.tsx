@@ -6,8 +6,8 @@ import LeadChatSection from "./LeadChat";
 import CallLogsSection from "./LeadCallLog";
 import LeadDetailsSidebar from "./LeadDetailSidebar";
 import ChatInputBox from "./ChatInputBox";
-import { useGetLeadByIdQuery } from "@/redux/services/leads/leadsApi";
-import { useGetConversationQuery } from "@/redux/services/conversation/conversationApi";
+import { useGetLeadByIdQuery } from "@/src/redux/services/leads/leadsApi";
+// import { useGetLeadByIdQuery } from "@/redux/services/leads/leadsApi";
 
 const LeadDetails = ({ leadId }: { leadId: string }) => {
   const [refreshChat, setRefreshChat] = useState(0);
@@ -17,6 +17,7 @@ const LeadDetails = ({ leadId }: { leadId: string }) => {
   useEffect(() => {
     refetch();
   }, []);
+
   if (isLoading || isFetching)
     return (
       <Box
@@ -47,9 +48,13 @@ const LeadDetails = ({ leadId }: { leadId: string }) => {
       />
       <Box display="flex" flexGrow={1}>
         <Box width="75%" bgcolor="#fff" paddingRight={"32px"}>
-          <LeadChatSection refreshTrigger={refreshChat} leadId={leadId} />
-          <CallLogsSection />
-          <ChatInputBox />
+          <LeadChatSection
+            refreshTrigger={refreshChat}
+            leadId={leadId}
+            userName={name}
+          />
+          <CallLogsSection lead_id={leadId} />
+          <ChatInputBox leadId={leadId} />
         </Box>
         <LeadDetailsSidebar data={data} />
       </Box>

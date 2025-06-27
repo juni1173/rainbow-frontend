@@ -17,13 +17,13 @@ import {
   SmallMail,
   SmallPhone,
   Urgent,
-} from "@/assests/icons";
+} from "@/src/assests/icons";
 import {
   useGetLeadsEnumsQuery,
   useUpdateLeadMutation,
-} from "@/redux/services/leads/leadsApi";
+} from "@/src/redux/services/leads/leadsApi";
 import { toast } from "react-toastify";
-import CustomSelect from "@/components/common/CustomSelect";
+import CustomSelect from "@/src/components/common/CustomSelect";
 
 const LeadDetailsSidebar = ({ data }: any) => {
   const [lead, setLead] = useState(data?.data?.[0]);

@@ -12,14 +12,14 @@ import {
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import AddNewUserModal from "./AddUserModal";
 import { tabItems } from "./data";
-import CustomButton from "@/components/common/CustomButton";
-import CustomTabs from "@/components/common/CustomTabs";
+import CustomButton from "@/src/components/common/CustomButton";
+import CustomTabs from "@/src/components/common/CustomTabs";
 import { Add, DeleteOutline } from "@mui/icons-material";
 import SettingsPanel from "./SettingPanel";
 import {
   useDeactivateUserMutation,
   useGetUsersQuery,
-} from "@/redux/services/users/usersApi";
+} from "@/src/redux/services/users/usersApi";
 import { toast } from "react-toastify";
 
 const UserManagement = () => {
@@ -61,7 +61,7 @@ const UserManagement = () => {
       <Box mb={2.5}>
         <CustomTabs
           tabs={tabItems}
-          onTabChange={(label) => setActiveTab(label)}
+          onTabChange={(label:any) => setActiveTab(label)}
         />
       </Box>
 

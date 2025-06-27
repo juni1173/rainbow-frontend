@@ -9,9 +9,10 @@ import {
   Paper,
   Divider,
 } from "@mui/material";
-import { useGetCurrentUserQuery } from "@/redux/services/users/usersApi";
+import { useGetCurrentUserQuery } from "@/src/redux/services/users/usersApi";
 import { useRouter } from "next/navigation";
-import CustomButton from "@/components/common/CustomButton";
+import CustomButton from "@/src/components/common/CustomButton";
+import { PasswordTwoTone } from "@mui/icons-material";
 
 const ProfileCard = () => {
   const { data, isLoading, error, refetch } = useGetCurrentUserQuery();
@@ -102,18 +103,18 @@ const ProfileCard = () => {
             onClick={handleChangePassword}
             sx={{ cursor: "pointer" }}
           >
-            <Typography
-              variant="body2"
+            <CustomButton
+              variant="outlined"
               sx={{
                 color: "#6B39F4",
                 fontWeight: 600,
                 fontSize: "16px",
                 userSelect: "none",
-                textDecoration: "underline",
               }}
+              startIcon={<PasswordTwoTone/>}
             >
               Change Password
-            </Typography>
+            </CustomButton>
           </Box>
         </Box>
 
@@ -152,11 +153,15 @@ const ProfileCard = () => {
             {role || "User"}
           </Typography>
         </Box>
-      <Box mt={8} display="flex" justifyContent="end">
-        <CustomButton variant="outlined" customColor="brown" onClick={() => router.back()}>
-          Go Back
-        </CustomButton>
-      </Box>
+        <Box mt={8} display="flex" justifyContent="end">
+          <CustomButton
+            variant="outlined"
+            customColor="brown"
+            onClick={() => router.back()}
+          >
+            Go Back
+          </CustomButton>
+        </Box>
       </Paper>
     </Box>
   );

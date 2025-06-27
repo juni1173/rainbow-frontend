@@ -9,15 +9,15 @@ import {
   Box,
   Divider,
 } from "@mui/material";
-import CustomTextField from "@/components/common/CustomTextfield";
-import CustomButton from "@/components/common/CustomButton";
-import { MailBlack } from "@/assests/icons";
+import CustomTextField from "@/src/components/common/CustomTextfield";
+import CustomButton from "@/src/components/common/CustomButton";
+import { MailBlack } from "@/src/assests/icons";
 import CloseIcon from "@mui/icons-material/Close";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { useCreateUserMutation } from "@/redux/services/users/usersApi";
+import { useCreateUserMutation } from "@/src/redux/services/users/usersApi";
 const AddNewUserModal = ({ open, onClose, refetchUsers }: any) => {
   const [createUser, { isLoading, isSuccess, isError }] =
     useCreateUserMutation();

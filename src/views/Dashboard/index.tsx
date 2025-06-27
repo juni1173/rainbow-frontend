@@ -8,19 +8,23 @@ import {
 } from "@mui/material";
 import React, { useEffect, useMemo, useState } from "react";
 import LeadCard from "./LeadCard";
-import CustomTabs from "@/components/common/CustomTabs";
-import Header from "@/views/Dashboard/Header";
-import CustomButton from "@/components/common/CustomButton";
+import CustomTabs from "@/src/components/common/CustomTabs";
+import Header from "@/src/views/Dashboard/Header";
+import CustomButton from "@/src/components/common/CustomButton";
 import AddLeadModal from "./AddLeadModal";
-import { useGetLeadsQuery } from "@/redux/services/leads/leadsApi";
+import { useGetLeadsQuery } from "@/src/redux/services/leads/leadsApi";
 import { useDebounce } from "use-debounce";
-import CustomPagination from "@/components/common/CustomPagination";
+import CustomPagination from "@/src/components/common/CustomPagination";
+import { useSearchParams } from "next/navigation";
 
 const Dashboard = () => {
+  const searchParams = useSearchParams();
   const [activeTab, setActiveTab] = useState("All");
   const [openModal, setOpenModal] = useState(false);
-  const [page, setPage] = useState(1);
+  // const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(Number(searchParams.get("page")) || 1);
+
   const ITEMS_PER_PAGE = 5;
   const offset = (page - 1) * ITEMS_PER_PAGE;
   const isAll = activeTab === "All";
@@ -134,6 +138,7 @@ const Dashboard = () => {
                   message={truncate(lead.content || "No message available", 50)}
                   avatarUrl={undefined}
                   tag={lead.tag || "Urgent"}
+                  page={page}
                 />
               );
             })
