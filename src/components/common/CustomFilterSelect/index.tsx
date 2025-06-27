@@ -9,7 +9,7 @@ import {
   capitalize,
 } from "@mui/material";
 import { CheckCircle } from "@mui/icons-material";
-import { Filter } from "@/assests/icons";
+import { Filter } from "@/src/assests/icons";
 
 interface SelectItem {
   label: string;

@@ -8,7 +8,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { initTwilioDevice } from "@/utils/Twilio";
+import { initTwilioDevice } from "@/src/utils/Twilio";
 import {
   Call,
   CallEnd,
@@ -19,9 +19,7 @@ import {
   PersonOutline,
   VerifiedUserSharp,
 } from "@mui/icons-material";
-import CustomTextField from "@/components/common/CustomTextfield";
-import { UserIcon } from "@/assests/icons";
-import { useCreateBotCallMutation } from "@/redux/services/twilio/twilioApi";
+import { useCreateBotCallMutation } from "@/src/redux/services/twilio/twilioApi";
 import { toast } from "react-toastify";
 
 const style = {

@@ -1,9 +1,11 @@
-type Props = {
-  params: {
-    id: string;
-  };
-};
+import LeadDetails from "@/src/views/Lead-Details";
 
-export default function LeadDetailsPage({ params }: Props) {
+// type Props = {
+//   params: {
+//     id: string;
+//   };
+// };
+
+export default function page({ params }: any) {
   return <LeadDetails leadId={params.id} />;
 }

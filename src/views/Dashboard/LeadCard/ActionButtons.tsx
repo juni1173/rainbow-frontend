@@ -2,7 +2,7 @@ import { Stack, IconButton } from '@mui/material';
 import CallIcon from '@mui/icons-material/Call';
 import EmailIcon from '@mui/icons-material/Email';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import { Call, Mail, Meeting, Phone } from '@/assests/icons';
+import { Call, Mail, Meeting, Phone } from '@/src/assests/icons';
 
 const iconStyle = {
   border: '1px solid #7A4DF5',

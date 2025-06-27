@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Stack, Typography } from '@mui/material';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-import { Meeting } from '@/assests/icons';
+import { Meeting } from '@/src/assests/icons';
 
 interface StatusButtonProps {
   type: 'addressed' | 'snoozed' | 'meeting';

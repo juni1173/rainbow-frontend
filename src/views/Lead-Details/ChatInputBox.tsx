@@ -5,8 +5,8 @@ import CallIcon from "@mui/icons-material/Call";
 import TaskIcon from "@mui/icons-material/Assignment";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import SendIcon from "@mui/icons-material/Send";
-import CustomButton from "@/components/common/CustomButton";
-import { AssignTask, Mark, SmallPhone } from "@/assests/icons";
+import CustomButton from "@/src/components/common/CustomButton";
+import { AssignTask, Mark, SmallPhone } from "@/src/assests/icons";
 import CallModal from "./CallModal";
 
 const ChatInputBox = ({ leadId }: any) => {

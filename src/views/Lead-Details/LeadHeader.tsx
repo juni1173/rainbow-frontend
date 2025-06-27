@@ -1,5 +1,5 @@
 "use client";
-import { Back, Call, Urgent } from "@/assests/icons";
+import { Back, Call, Urgent } from "@/src/assests/icons";
 import {
   Box,
   Typography,
@@ -15,7 +15,7 @@ import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { Refresh } from "@mui/icons-material";
-import { getInitials } from "@/utils/GetInitials";
+import { getInitials } from "@/src/utils/GetInitials";
 interface LeadHeaderProps {
   name: string;
   status: string;

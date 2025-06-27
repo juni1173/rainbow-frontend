@@ -111,10 +111,10 @@ import {
 import Image from "next/image";
 import AvatarPic from "../../assests/images/Avatars.png";
 import User from "../../assests/images/user.png";
-import { useGetConversationQuery } from "@/redux/services/conversation/conversationApi";
+import { useGetConversationQuery } from "@/src/redux/services/conversation/conversationApi";
 import { useEffect, useRef, useState } from "react";
-import { extractTime } from "@/utils/ExtractTime";
-import { getInitials } from "@/utils/GetInitials";
+import { extractTime } from "@/src/utils/ExtractTime";
+import { getInitials } from "@/src/utils/GetInitials";
 
 const LeadChatSection = ({ refreshTrigger, leadId, userName }: any) => {
   const [allMessages, setAllMessages] = useState<any[]>([]);

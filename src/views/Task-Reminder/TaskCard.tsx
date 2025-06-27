@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
 import { Box, Typography, Stack, Button, Checkbox } from "@mui/material";
-import CustomButton from "@/components/common/CustomButton";
-import { Bell, Details, Meeting, UrgentBlue } from "@/assests/icons";
+import CustomButton from "@/src/components/common/CustomButton";
+import { Bell, Details, Meeting, UrgentBlue } from "@/src/assests/icons";
 import CheckCircleOutlineIcon from "@mui/icons-material/RadioButtonUnchecked";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 

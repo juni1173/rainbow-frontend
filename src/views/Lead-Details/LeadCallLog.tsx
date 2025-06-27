@@ -7,10 +7,10 @@ import {
   Divider,
   CircularProgress,
 } from "@mui/material";
-import { Ai, Call, SmallPhone } from "@/assests/icons";
-import CustomButton from "@/components/common/CustomButton";
-import { useGetSuggestionsQuery } from "@/redux/services/conversation/conversationApi";
-import { useSendSmsMutation } from "@/redux/services/twilio/twilioApi";
+import { Ai, Call, SmallPhone } from "@/src/assests/icons";
+import CustomButton from "@/src/components/common/CustomButton";
+import { useGetSuggestionsQuery } from "@/src/redux/services/conversation/conversationApi";
+import { useSendSmsMutation } from "@/src/redux/services/twilio/twilioApi";
 
 const CallLogsSection = ({ lead_id }: any) => {
   const { data: SuggestionData, isLoading } = useGetSuggestionsQuery({

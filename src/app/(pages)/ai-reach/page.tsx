@@ -1,4 +1,3 @@
-import AiReach from "@/views/Lead-Details";
 import React from "react";
 
 const page = () => {

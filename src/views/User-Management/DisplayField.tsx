@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Box, Typography, IconButton, TextField } from "@mui/material";
-import { Copy } from "@/assests/icons";
+import { Copy } from "@/src/assests/icons";
 import { Check } from "@mui/icons-material";
 
 const DisplayField = ({ label, value, showCopyIcon = false, onCopy }: any) => {

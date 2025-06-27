@@ -2,7 +2,7 @@
 import { Box, Typography, Avatar, Stack, Button, Chip } from "@mui/material";
 import StatusTag from "./StatusTag";
 import ActionButtons from "./ActionButtons";
-import { Cold, Typing, Urgent } from "@/assests/icons";
+import { Cold, Typing, Urgent } from "@/src/assests/icons";
 import StatusButton from "./StatusButton";
 import { useRouter } from "next/navigation";
 

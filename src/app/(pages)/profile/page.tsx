@@ -9,9 +9,9 @@ import {
   Paper,
   Divider,
 } from "@mui/material";
-import { useGetCurrentUserQuery } from "@/redux/services/users/usersApi";
+import { useGetCurrentUserQuery } from "@/src/redux/services/users/usersApi";
 import { useRouter } from "next/navigation";
-import CustomButton from "@/components/common/CustomButton";
+import CustomButton from "@/src/components/common/CustomButton";
 import { PasswordTwoTone } from "@mui/icons-material";
 
 const ProfileCard = () => {

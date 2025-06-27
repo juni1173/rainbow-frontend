@@ -6,7 +6,8 @@ import LeadChatSection from "./LeadChat";
 import CallLogsSection from "./LeadCallLog";
 import LeadDetailsSidebar from "./LeadDetailSidebar";
 import ChatInputBox from "./ChatInputBox";
-import { useGetLeadByIdQuery } from "@/redux/services/leads/leadsApi";
+import { useGetLeadByIdQuery } from "@/src/redux/services/leads/leadsApi";
+// import { useGetLeadByIdQuery } from "@/redux/services/leads/leadsApi";
 
 const LeadDetails = ({ leadId }: { leadId: string }) => {
   const [refreshChat, setRefreshChat] = useState(0);

@@ -1,4 +1,4 @@
-import UserManagement from "@/views/User-Management";
+import UserManagement from "@/src/views/User-Management";
 import React from "react";
 
 const page = () => {

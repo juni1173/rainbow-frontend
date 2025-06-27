@@ -1,8 +1,10 @@
-import Dashboard from "@/views/Dashboard";
-import React from "react";
+import { Suspense } from "react";
+import Dashboard from "@/src/views/Dashboard";
 
-const page = () => {
-  return <Dashboard />;
-};
-
-export default page;
+export default function Page() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Dashboard />
+    </Suspense>
+  );
+}
