@@ -104,6 +104,11 @@ const Sidebar = () => {
           display: {
             xs: "none",
             sm: "block",
+
+            transform: "scale(0.875)",
+            transformOrigin: "top left",
+            width: "114.2857%",
+            height: "114.2857%",
           },
         }}
       >
@@ -123,7 +128,8 @@ const Sidebar = () => {
             onClick={() => router.push("/dashboard")}
           />
         </Box>
-        <Box
+        {/* will be used in future */}
+        {/* <Box
           sx={{
             display: "inline-flex",
             border: "1px solid #ccc",
@@ -154,7 +160,7 @@ const Sidebar = () => {
               {label}
             </Typography>
           ))}
-        </Box>
+        </Box> */}
         <Box
           display={"flex"}
           flexDirection={"column"}

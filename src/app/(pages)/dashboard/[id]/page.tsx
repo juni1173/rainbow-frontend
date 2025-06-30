@@ -6,6 +6,7 @@ import LeadDetails from "@/src/views/Lead-Details";
 //   };
 // };
 
-export default function page({ params }: any) {
+export default function page({ params, searchParams }: any) {
   return <LeadDetails leadId={params.id} />;
+  // return <LeadDetails leadId={params.id} page={searchParams.page} />;
 }

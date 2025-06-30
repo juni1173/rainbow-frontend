@@ -10,12 +10,11 @@ import {
   Avatar,
   CircularProgress,
 } from "@mui/material";
-import User from "../../assests/images/user.png";
-import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { Refresh } from "@mui/icons-material";
 import { getInitials } from "@/src/utils/GetInitials";
+import CustomButton from "@/src/components/common/CustomButton";
 interface LeadHeaderProps {
   name: string;
   status: string;
@@ -90,29 +89,21 @@ const LeadHeader = ({ name, status, onRefreshClick }: LeadHeaderProps) => {
           </Stack>
         </Box>
         <Box display={"flex"} alignItems="center" gap={2}>
-          {loading ? (
-            <Box
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              sx={{
-                width: 32,
-                height: 32,
-              }}
-            >
-              <CircularProgress size={24} sx={{ color: "#0062FF" }} />
-            </Box>
-          ) : (
-            <Refresh
-              onClick={handleRefreshClick}
-              sx={{
-                cursor: "pointer",
-                color: "#0062FF",
-                "&:hover": { color: "#004BB5" },
-              }}
-            />
-          )}
-          <Box
+          <CustomButton
+            variant="contained"
+            onClick={handleRefreshClick}
+            startIcon={
+              loading ? (
+                <CircularProgress size={20} sx={{ color: "#fff" }} />
+              ) : (
+                <Refresh sx={{ cursor: "pointer" }} />
+              )
+            }
+          >
+            Fetch Conversation
+          </CustomButton>
+
+          {/* <Box
             sx={{
               display: "flex",
               alignItems: "center",
@@ -131,7 +122,7 @@ const LeadHeader = ({ name, status, onRefreshClick }: LeadHeaderProps) => {
             >
               Call logs
             </Typography>
-          </Box>
+          </Box> */}
         </Box>
       </Box>
       <Divider sx={{ marginX: "-30px", borderColor: "#DFE1E7" }} />

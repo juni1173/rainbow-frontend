@@ -19,6 +19,7 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: "Switzer",
+    htmlFontSize: 14,
     h1: {
       fontSize: "40px",
       fontWeight: 600,
@@ -30,12 +31,12 @@ const theme = createTheme({
         fontWeight: 600,
         lineHeight: "38px",
       },
-       "@media (max-width:600px)": {
+      "@media (max-width:600px)": {
         fontSize: "30px",
         fontWeight: 500,
         lineHeight: "38px",
       },
-       "@media (max-width:400px)": {
+      "@media (max-width:400px)": {
         fontSize: "27px",
         fontWeight: 500,
         lineHeight: "38px",
