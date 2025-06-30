@@ -8,6 +8,7 @@ import SendIcon from "@mui/icons-material/Send";
 import CustomButton from "@/src/components/common/CustomButton";
 import { AssignTask, Mark, SmallPhone } from "@/src/assests/icons";
 import CallModal from "./CallModal";
+import { Email } from "@mui/icons-material";
 
 const ChatInputBox = ({ leadId }: any) => {
   const [message, setMessage] = useState("");
@@ -70,10 +71,10 @@ const ChatInputBox = ({ leadId }: any) => {
 
           <CustomButton
             variant="outlined"
-            startIcon={<AssignTask />}
+            startIcon={<Email />}
             fontWeight="600"
           >
-            Assign Task
+            Send Email
           </CustomButton>
 
           <CustomButton

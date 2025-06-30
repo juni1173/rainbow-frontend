@@ -15,7 +15,7 @@ import AddLeadModal from "./AddLeadModal";
 import { useGetLeadsQuery } from "@/src/redux/services/leads/leadsApi";
 import { useDebounce } from "use-debounce";
 import CustomPagination from "@/src/components/common/CustomPagination";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 
 const Dashboard = () => {
   const searchParams = useSearchParams();
@@ -38,10 +38,13 @@ const Dashboard = () => {
     offset,
     name: debouncedSearch?.trim() || undefined,
   });
+  const pathname = usePathname();
 
+  // ⛔ Stop rendering Dashboard on /dashboard/[id]
   useEffect(() => {
     refetch();
   }, []);
+
   const leads = data?.data || [];
   const totalCount = data?.total_records || 0;
 
@@ -67,7 +70,9 @@ const Dashboard = () => {
     setLoading(true);
     setTimeout(() => setLoading(false), 400);
   };
-
+  if (pathname.match(/^\/dashboard\/[^\/]+$/)) {
+    return null;
+  }
   return (
     <Box padding="48px">
       <Header searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
